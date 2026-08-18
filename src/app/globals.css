@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+@theme {
+  --width-7xl: 1600px;
+}
+
+@layer base {
+  :root {
+    --bg-primary: #F7F3EC;
+    --bg-secondary: #EFE8DE;
+    --text-primary: #111111;
+    --text-faded: rgba(17, 17, 17, 0.4);
+    --accent-purple: #8C21EF;
+    --border-subtle: rgba(17, 17, 17, 0.12);
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+  }
+
+  .font-luxury-serif {
+    font-family: 'Playfair Display', 'Instrument Serif', serif;
+  }
+
+  .font-outfit {
+    font-family: 'Outfit', sans-serif;
+  }
+
+  .font-serif-italic {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+  }
+
+  code, pre {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+/* Kinetic Ticker Marquee Animation */
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: 200%;
+  animation: marquee 30s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Fine Editorial Borders */
+.border-editorial {
+  border-color: rgba(17, 17, 17, 0.12);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 0px;
+}
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
