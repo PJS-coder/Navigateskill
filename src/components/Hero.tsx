@@ -120,11 +120,11 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation }) => {
       {/* ── MOBILE HERO LAYOUT (100dvh Viewport Locked & Dynamic Fitting) ── */}
       <div className="flex-1 flex md:hidden flex-col justify-between px-4 sm:px-5 py-3 gap-2 overflow-hidden min-h-0">
 
-        {/* TOP: Headline & subtitle */}
-        <div className="flex-shrink-0 flex flex-col gap-1.5 pt-1">
-          <h1 className="text-[2.1rem] min-[390px]:text-[2.4rem] sm:text-[2.85rem] font-black tracking-[-0.01em] text-[#111111] font-display uppercase leading-[1.08] sm:leading-[1.12]">
+        {/* TOP: Headline & subtitle (With breathing room spacing between text lines) */}
+        <div className="flex-shrink-0 flex flex-col gap-2.5 pt-1">
+          <h1 className="text-[2.1rem] min-[390px]:text-[2.4rem] sm:text-[2.85rem] font-black tracking-[-0.01em] text-[#111111] font-display uppercase leading-[1.18] sm:leading-[1.22]">
             Navigate The<br />Future of Digital<br />
-            <span className="inline-block relative h-[1.2em] overflow-visible align-bottom w-[85vw] pb-1 pr-4">
+            <span className="inline-block relative h-[1.3em] overflow-visible align-bottom w-[85vw] pt-1 pb-1 pr-4">
               <AnimatePresence mode="wait">
                 <motion.span
                   key={cyclingWords[wordIndex]}
@@ -139,19 +139,19 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation }) => {
               </AnimatePresence>
             </span>
           </h1>
-          <p className="text-[11px] sm:text-xs text-[#111111]/80 font-medium leading-tight max-w-sm">
+          <p className="text-[11px] sm:text-xs text-[#111111]/80 font-medium leading-relaxed max-w-sm pt-0.5">
             Navigateskill turns brands into digital powerhouses — through intelligent marketing, creative strategy, and next-gen automation.
           </p>
         </div>
 
-        {/* MIDDLE: yoo.png image (Flex-1 dynamically sizes to fit available space) */}
-        <div className="flex-1 min-h-0 flex items-center justify-center py-1 my-auto overflow-hidden">
+        {/* MIDDLE: yoo.png image (Visually larger via scale without affecting layout of other elements) */}
+        <div className="flex-1 min-h-0 flex items-center justify-center py-0.5 my-auto overflow-hidden">
           <motion.img
             src={yooSrc}
             alt="Navigate Studio Showcase"
-            whileHover={{ scale: 1.04 }}
+            whileHover={{ scale: 1.08 }}
             transition={{ duration: 0.4, ease: 'easeOut' }}
-            className="w-auto max-w-[88%] sm:max-w-[92%] h-full max-h-[240px] min-[390px]:max-h-[310px] min-[420px]:max-h-[360px] sm:max-h-[420px] object-contain select-none drop-shadow-xl"
+            className="w-auto max-w-[96%] sm:max-w-[98%] h-full max-h-[270px] min-[390px]:max-h-[340px] min-[420px]:max-h-[390px] sm:max-h-[450px] object-contain select-none drop-shadow-2xl scale-[1.06] origin-center"
           />
         </div>
 
