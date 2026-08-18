@@ -92,8 +92,8 @@ export const AboutUsSection: React.FC = () => {
             {/* SUBTLE AMBIENT RADIAL PURPLE GLOW */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-[#8C21EF]/10 rounded-full blur-3xl pointer-events-none" />
 
-            {/* TOP 2 MICRO CORNER CARDS (FAR LEFT & FAR RIGHT EDGES) */}
-            <div className="flex items-center justify-between w-full relative z-10 mt-4 mb-4">
+            {/* TOP 2 CORNER CARDS (FAR LEFT & FAR RIGHT EDGES — INCREASED SIZE) */}
+            <div className="flex items-center justify-between w-full relative z-10 mt-2 mb-2">
               {aboutImages.slice(0, 2).map((card, idx) => (
                 <motion.div
                   key={card.id}
@@ -102,20 +102,20 @@ export const AboutUsSection: React.FC = () => {
                   viewport={{ once: true }}
                   transition={{ duration: 0.35, delay: idx * 0.08 }}
                   whileTap={{ scale: 0.95 }}
-                  className="w-[26%] max-w-[85px] rounded-lg overflow-hidden shadow-xs border border-[#111111]/10 bg-white p-0.5 flex flex-col justify-between cursor-pointer group"
+                  className="w-[36%] max-w-[125px] sm:max-w-[140px] rounded-xl overflow-hidden shadow-sm border border-[#111111]/12 bg-white p-1 flex flex-col justify-between cursor-pointer group"
                 >
-                  <div className="h-8 rounded-md overflow-hidden relative bg-[#EFE8DE]">
+                  <div className="h-14 sm:h-16 rounded-lg overflow-hidden relative bg-[#EFE8DE]">
                     <img
                       src={card.image}
                       alt={card.title}
                       className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-300"
                     />
-                    <div className="absolute top-0.5 right-0.5 bg-[#111111]/85 text-white text-[7px] font-black font-display px-1 py-0.2 rounded">
+                    <div className="absolute top-1 right-1 bg-[#111111]/85 text-white text-[8.5px] font-black font-display px-1.5 py-0.5 rounded-md">
                       {card.numTag.slice(0, 2)}
                     </div>
                   </div>
-                  <div className="pt-0.5 pb-0.5 px-0.5">
-                    <h3 className="text-[7.5px] font-black uppercase tracking-wider text-[#111111] truncate font-display text-center">
+                  <div className="pt-1 pb-0.5 px-0.5">
+                    <h3 className="text-[9px] sm:text-[10px] font-black uppercase tracking-wider text-[#111111] truncate font-display text-center">
                       {card.title}
                     </h3>
                   </div>
@@ -123,32 +123,73 @@ export const AboutUsSection: React.FC = () => {
               ))}
             </div>
 
-            {/* MAIN STATEMENT - MASSIVE BOLD TEXT WITH PROPER ALIGNMENT & SPACING */}
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.45 }}
-              className="relative z-10 text-center px-2 py-4 my-4"
-            >
-              <h2 className="text-2xl sm:text-4xl md:text-5xl font-black tracking-tight uppercase leading-[1.18] text-[#111111] font-display">
-                NAVIGATE <span className="text-[#8C21EF]">SKILL</span> IS A DELHI-BASED COMPANY FOCUSED ON{' '}
-                <span className="text-[#8C21EF] block my-1.5">
-                  DIGITAL SOLUTIONS,
-                </span>{' '}
-                <span className="text-[#8C21EF] block my-1.5">
-                  PROFESSIONAL SERVICES,
-                </span>{' '}
-                AND{' '}
-                <span className="text-[#8C21EF] block my-1.5">
-                  SKILL DEVELOPMENT
-                </span>{' '}
-                FOR MODERN BUSINESSES.
-              </h2>
-            </motion.div>
+            {/* MAIN STATEMENT - MASSIVE BOLD TEXT WITH LIGHTWEIGHT LAG-FREE STAGGERED FADE REVEAL */}
+            <div className="relative z-10 text-center px-3 py-6 my-4">
+              <h2 className="text-[1.75rem] xs:text-[2.1rem] sm:text-4xl md:text-5xl font-black tracking-tight uppercase leading-[1.28] text-[#111111] font-display">
+                <motion.span
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-30px' }}
+                  transition={{ duration: 0.45, ease: [0.25, 0.1, 0.25, 1.0] }}
+                  className="block"
+                >
+                  NAVIGATE <span className="text-[#8C21EF]">SKILL</span> IS A DELHI-BASED COMPANY FOCUSED ON
+                </motion.span>
 
-            {/* BOTTOM 2 MICRO CORNER CARDS (FAR LEFT & FAR RIGHT EDGES) */}
-            <div className="flex items-center justify-between w-full relative z-10 my-1 pt-1">
+                <motion.span
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-30px' }}
+                  transition={{ duration: 0.45, delay: 0.1, ease: [0.25, 0.1, 0.25, 1.0] }}
+                  className="font-serif italic font-normal capitalize text-[#8C21EF] block my-2.5 text-[1.95rem] xs:text-[2.35rem] sm:text-5xl"
+                >
+                  Digital Solutions,
+                </motion.span>
+
+                <motion.span
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-30px' }}
+                  transition={{ duration: 0.45, delay: 0.18, ease: [0.25, 0.1, 0.25, 1.0] }}
+                  className="font-serif italic font-normal capitalize text-[#8C21EF] block my-2.5 text-[1.95rem] xs:text-[2.35rem] sm:text-5xl"
+                >
+                  Professional Services,
+                </motion.span>
+
+                <motion.span
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-30px' }}
+                  transition={{ duration: 0.45, delay: 0.24, ease: [0.25, 0.1, 0.25, 1.0] }}
+                  className="inline-block my-1 font-black"
+                >
+                  AND
+                </motion.span>
+
+                <motion.span
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-30px' }}
+                  transition={{ duration: 0.45, delay: 0.3, ease: [0.25, 0.1, 0.25, 1.0] }}
+                  className="font-serif italic font-normal capitalize text-[#8C21EF] block my-2.5 text-[1.95rem] xs:text-[2.35rem] sm:text-5xl"
+                >
+                  Skill Development
+                </motion.span>
+
+                <motion.span
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-30px' }}
+                  transition={{ duration: 0.45, delay: 0.36, ease: [0.25, 0.1, 0.25, 1.0] }}
+                  className="block mt-1"
+                >
+                  FOR MODERN BUSINESSES.
+                </motion.span>
+              </h2>
+            </div>
+
+            {/* BOTTOM 2 CORNER CARDS (FAR LEFT & FAR RIGHT EDGES — INCREASED SIZE) */}
+            <div className="flex items-center justify-between w-full relative z-10 my-2 pt-1">
               {aboutImages.slice(2, 4).map((card, idx) => (
                 <motion.div
                   key={card.id}
@@ -157,20 +198,20 @@ export const AboutUsSection: React.FC = () => {
                   viewport={{ once: true }}
                   transition={{ duration: 0.35, delay: idx * 0.08 }}
                   whileTap={{ scale: 0.95 }}
-                  className="w-[26%] max-w-[85px] rounded-lg overflow-hidden shadow-xs border border-[#111111]/10 bg-white p-0.5 flex flex-col justify-between cursor-pointer group"
+                  className="w-[36%] max-w-[125px] sm:max-w-[140px] rounded-xl overflow-hidden shadow-sm border border-[#111111]/12 bg-white p-1 flex flex-col justify-between cursor-pointer group"
                 >
-                  <div className="h-8 rounded-md overflow-hidden relative bg-[#EFE8DE]">
+                  <div className="h-14 sm:h-16 rounded-lg overflow-hidden relative bg-[#EFE8DE]">
                     <img
                       src={card.image}
                       alt={card.title}
                       className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-300"
                     />
-                    <div className="absolute top-0.5 right-0.5 bg-[#111111]/85 text-white text-[7px] font-black font-display px-1 py-0.2 rounded">
+                    <div className="absolute top-1 right-1 bg-[#111111]/85 text-white text-[8.5px] font-black font-display px-1.5 py-0.5 rounded-md">
                       {card.numTag.slice(0, 2)}
                     </div>
                   </div>
-                  <div className="pt-0.5 pb-0.5 px-0.5">
-                    <h3 className="text-[7.5px] font-black uppercase tracking-wider text-[#111111] truncate font-display text-center">
+                  <div className="pt-1 pb-0.5 px-0.5">
+                    <h3 className="text-[9px] sm:text-[10px] font-black uppercase tracking-wider text-[#111111] truncate font-display text-center">
                       {card.title}
                     </h3>
                   </div>

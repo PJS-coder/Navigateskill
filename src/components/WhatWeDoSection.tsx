@@ -92,7 +92,7 @@ const DoCardItem: React.FC<DoCardItemProps> = ({
   const cardY = useTransform(
     scrollYProgress,
     [startScroll - 0.08, targetScroll],
-    [isMobile ? 180 : 900, 0]
+    [isMobile ? 140 : 480, 0]
   );
 
   const cardOpacity = useTransform(
@@ -104,13 +104,13 @@ const DoCardItem: React.FC<DoCardItemProps> = ({
   const cardRotate = useTransform(
     scrollYProgress,
     [startScroll - 0.08, targetScroll],
-    [isMobile ? 2 : 8, item.rotation]
+    [isMobile ? 2 : 5, item.rotation]
   );
 
   const cardScale = useTransform(
     scrollYProgress,
     [startScroll - 0.08, targetScroll],
-    [0.96, 1]
+    [0.97, 1]
   );
 
   return (
@@ -123,7 +123,7 @@ const DoCardItem: React.FC<DoCardItemProps> = ({
         zIndex: 10 + index,
         willChange: 'transform, opacity',
       }}
-      className="absolute inset-0 bg-[#dfe5e8] border border-white/80 p-5 sm:p-10 rounded-2xl sm:rounded-[28px] shadow-lg md:shadow-[0_30px_80px_rgba(0,0,0,0.18)] hover:shadow-2xl transition-shadow duration-300 flex flex-col justify-between select-none overflow-hidden"
+      className="absolute inset-0 bg-[#dfe5e8] border border-white/90 p-5 sm:p-10 rounded-2xl sm:rounded-[28px] shadow-xl transition-shadow duration-200 flex flex-col justify-between select-none overflow-hidden transform-gpu"
     >
       <div className="space-y-2 sm:space-y-4">
         <div className="flex items-center justify-between text-[10px] sm:text-xs font-black uppercase tracking-wider text-[#8C21EF]">

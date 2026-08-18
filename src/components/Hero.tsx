@@ -80,38 +80,103 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation }) => {
             </button>
           </div>
 
-          {/* Mobile Dropdown Menu */}
+          {/* Mobile Left Drawer Navigation Menu */}
           <AnimatePresence>
             {mobileMenuOpen && (
-              <motion.div
-                initial={{ opacity: 0, y: -8, scaleY: 0.95 }}
-                animate={{ opacity: 1, y: 0, scaleY: 1 }}
-                exit={{ opacity: 0, y: -8, scaleY: 0.95 }}
-                transition={{ duration: 0.18 }}
-                className="md:hidden mt-2 bg-[#EAE4D9]/98 backdrop-blur-xl border border-[#111111]/10 rounded-2xl overflow-hidden shadow-2xl z-50 relative"
-              >
-                {['#about|About Us', '#what-we-offer|What We Offer', '#what-we-do|What We Do', '#our-work|Our Services'].map((item) => {
-                  const [href, label] = item.split('|');
-                  return (
-                    <a
-                      key={href}
-                      href={href}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center justify-between px-5 py-3.5 border-b border-[#111111]/08 text-xs font-black uppercase tracking-wider text-[#111111] hover:text-[#8C21EF] hover:bg-[#8C21EF]/5 transition-colors"
-                    >
-                      <span>{label}</span>
-                      <ArrowRight className="w-3.5 h-3.5 opacity-40" />
-                    </a>
-                  );
-                })}
-                <button
-                  onClick={() => { setMobileMenuOpen(false); onOpenConsultation(); }}
-                  className="w-full flex items-center justify-center gap-2 px-5 py-4 bg-[#8C21EF] text-white text-xs font-black uppercase tracking-wider"
+              <>
+                {/* Backdrop Overlay */}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.25 }}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="fixed inset-0 bg-[#111111]/50 backdrop-blur-sm z-50 md:hidden"
+                />
+
+                {/* Left Side Sliding Drawer Menu (Website Theme #F7F3EC) */}
+                <motion.div
+                  initial={{ x: '-100%' }}
+                  animate={{ x: '0%' }}
+                  exit={{ x: '-100%' }}
+                  transition={{ type: 'spring', damping: 28, stiffness: 280 }}
+                  className="fixed top-0 left-0 bottom-0 w-[85vw] max-w-[340px] bg-[#F7F3EC] text-[#111111] p-6 z-50 shadow-2xl flex flex-col justify-between border-r border-[#111111]/12 md:hidden overflow-y-auto"
                 >
-                  <span>Contact Our Team</span>
-                  <ArrowUpRight className="w-4 h-4" />
-                </button>
-              </motion.div>
+                  {/* Top Header */}
+                  <div className="flex items-center justify-between border-b border-[#111111]/10 pb-5">
+                    <div className="flex items-center gap-2.5">
+                      <div className="bg-[#111111] p-1.5 rounded-xl flex items-center justify-center shadow-md">
+                        <img src={logoSrc} alt="Navigate Skill Logo" className="h-5 w-auto object-contain" />
+                      </div>
+                      <div className="flex flex-col">
+                        <span className="text-sm font-black tracking-tight text-[#111111] font-display uppercase leading-none">
+                          NAVIGATE <span className="text-[#8C21EF]">SKILL</span>
+                        </span>
+                        <span className="text-[9px] font-extrabold text-[#111111]/50 uppercase tracking-widest pt-0.5">
+                          Delhi, India
+                        </span>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="w-8 h-8 rounded-xl bg-[#111111] text-white flex items-center justify-center hover:bg-[#8C21EF] transition-colors shadow-sm"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
+
+                  {/* Menu Links */}
+                  <div className="py-6 space-y-1 flex-1">
+                    <div className="text-[10px] font-black uppercase tracking-widest text-[#8C21EF] mb-3 px-2">
+                      Navigation Menu
+                    </div>
+                    {[
+                      '01|#about|About Us',
+                      '02|#what-we-offer|What We Offer',
+                      '03|#what-we-do|What We Do',
+                      '04|#our-work|Our Services',
+                      '05|#who-we-are|Who We Are',
+                    ].map((item, idx) => {
+                      const [num, href, label] = item.split('|');
+                      return (
+                        <motion.a
+                          key={href}
+                          href={href}
+                          initial={{ opacity: 0, x: -15 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.08 + idx * 0.05 }}
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="flex items-center justify-between p-3 rounded-xl border border-transparent hover:border-[#111111]/12 hover:bg-[#EAE4D9]/80 group transition-all duration-200"
+                        >
+                          <div className="flex items-center gap-3">
+                            <span className="text-xs font-black font-display text-[#8C21EF]">
+                              {num}
+                            </span>
+                            <span className="text-sm font-extrabold uppercase tracking-wider text-[#111111] group-hover:text-[#8C21EF] transition-colors">
+                              {label}
+                            </span>
+                          </div>
+                          <ArrowRight className="w-4 h-4 text-[#111111]/40 group-hover:text-[#8C21EF] group-hover:translate-x-1 transition-all" />
+                        </motion.a>
+                      );
+                    })}
+                  </div>
+
+                  {/* Bottom Footer CTA & Credits */}
+                  <div className="space-y-4 pt-4 border-t border-[#111111]/10">
+                    <button
+                      onClick={() => { setMobileMenuOpen(false); onOpenConsultation(); }}
+                      className="w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-[#111111] text-[#F7F3EC] text-xs font-black uppercase tracking-wider hover:bg-[#8C21EF] transition-all shadow-md active:scale-95"
+                    >
+                      <span>Book Consultation</span>
+                      <ArrowUpRight className="w-4 h-4" />
+                    </button>
+                    <div className="text-[10px] font-medium text-[#111111]/50 text-center tracking-wider uppercase">
+                      © 2026 Navigateskill • All Rights Reserved
+                    </div>
+                  </div>
+                </motion.div>
+              </>
             )}
           </AnimatePresence>
         </div>
@@ -197,21 +262,21 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation }) => {
         </div>
       </div>
 
-      {/* ── DESKTOP HERO LAYOUT (hidden on mobile) ── */}
-      <div className="hidden md:flex flex-1 w-full px-6 lg:px-14 py-4 items-center overflow-hidden">
-        <div className="grid grid-cols-12 gap-10 items-center w-full">
+      {/* ── DESKTOP HERO LAYOUT (hidden on mobile — scaled up for large PC displays) ── */}
+      <div className="hidden md:flex flex-1 w-full px-6 lg:px-12 xl:px-16 2xl:px-20 py-4 items-center overflow-hidden">
+        <div className="grid grid-cols-12 gap-8 lg:gap-12 2xl:gap-16 items-center w-full max-w-[1800px] mx-auto">
 
           {/* Left: Text Column */}
-          <div className="col-span-6 space-y-5">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#8C21EF]/15 text-[#8C21EF] text-xs font-black uppercase tracking-widest border border-[#8C21EF]/20">
-              <Sparkles className="w-3.5 h-3.5" />
+          <div className="col-span-7 xl:col-span-6 space-y-5 lg:space-y-7">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 lg:px-4 lg:py-2 rounded-full bg-[#8C21EF]/15 text-[#8C21EF] text-xs lg:text-sm font-black uppercase tracking-widest border border-[#8C21EF]/20">
+              <Sparkles className="w-3.5 h-3.5 lg:w-4 lg:h-4" />
               <span>GROWTH ENGINE</span>
             </div>
 
-            <h1 className="text-5xl md:text-5xl lg:text-[3.4rem] xl:text-[3.8rem] font-black tracking-tight text-[#111111] font-display uppercase leading-[1.04]">
+            <h1 className="text-5xl lg:text-[3.6rem] xl:text-[4.5rem] 2xl:text-[5.5rem] font-black tracking-tight text-[#111111] font-display uppercase leading-[1.03]">
               Navigate The <br />
               Future of Digital <br />
-              <span className="inline-block relative h-[1.3em] overflow-hidden align-bottom min-w-[280px] md:min-w-[340px] lg:min-w-[380px] pb-1.5 pr-6">
+              <span className="inline-block relative h-[1.3em] overflow-hidden align-bottom min-w-[280px] md:min-w-[340px] lg:min-w-[420px] xl:min-w-[500px] 2xl:min-w-[620px] pb-1.5 pr-6">
                 <AnimatePresence mode="wait">
                   <motion.span
                     key={cyclingWords[wordIndex]}
@@ -227,44 +292,44 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation }) => {
               </span>
             </h1>
 
-            <p className="text-sm md:text-base text-[#111111]/80 font-medium leading-relaxed max-w-lg">
+            <p className="text-base lg:text-lg xl:text-xl text-[#111111]/80 font-medium leading-relaxed max-w-lg xl:max-w-2xl">
               Navigateskill turns brands into digital powerhouses — through intelligent marketing, creative strategy, and next-gen automation.
             </p>
 
-            <div className="flex flex-wrap items-center gap-3">
+            <div className="flex flex-wrap items-center gap-3.5 lg:gap-4 pt-1">
               <button
                 onClick={onOpenConsultation}
-                className="group px-6 py-3 rounded-full bg-[#111111] text-[#F7F3EC] text-xs font-black uppercase tracking-wider hover:bg-[#8C21EF] transition-all duration-300 shadow-md flex items-center gap-2"
+                className="group px-6 lg:px-8 py-3.5 lg:py-4 rounded-full bg-[#111111] text-[#F7F3EC] text-xs lg:text-sm font-black uppercase tracking-wider hover:bg-[#8C21EF] transition-all duration-300 shadow-md flex items-center gap-2.5 active:scale-95"
               >
                 <span>GET STARTED NOW</span>
-                <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                <ArrowUpRight className="w-4 h-4 lg:w-4.5 lg:h-4.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </button>
               <a
                 href="#what-we-offer"
-                className="px-6 py-3 rounded-full bg-[#EFE8DE] text-[#111111] text-xs font-black uppercase tracking-wider hover:bg-[#111111] hover:text-white transition-all duration-300 flex items-center gap-2"
+                className="px-6 lg:px-8 py-3.5 lg:py-4 rounded-full bg-[#EFE8DE] text-[#111111] text-xs lg:text-sm font-black uppercase tracking-wider hover:bg-[#111111] hover:text-white transition-all duration-300 flex items-center gap-2.5"
               >
                 <span>VIEW OUR SERVICES</span>
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-4 h-4 lg:w-4.5 lg:h-4.5" />
               </a>
             </div>
           </div>
 
           {/* Right: Image Column */}
-          <div className="col-span-6 flex justify-center items-center">
+          <div className="col-span-5 xl:col-span-6 flex justify-center items-center">
             <motion.img
               src={yooSrc}
               alt="Navigate Studio Showcase"
               whileHover={{ scale: 1.04 }}
               transition={{ duration: 0.4, ease: 'easeOut' }}
-              className="w-full h-auto max-h-[66vh] object-contain select-none scale-[1.12]"
+              className="w-full h-auto max-h-[66vh] xl:max-h-[72vh] object-contain select-none scale-[1.12] xl:scale-[1.18]"
             />
           </div>
         </div>
       </div>
 
       {/* ── DESKTOP BOTTOM BAR (hidden on mobile) ── */}
-      <div className="hidden md:flex w-full px-6 lg:px-14 py-3 border-t border-[#111111]/10 items-center justify-between flex-shrink-0">
-        <div className="flex items-center gap-8 text-xs font-black uppercase tracking-wider text-[#111111]">
+      <div className="hidden md:flex w-full px-6 lg:px-14 py-3.5 border-t border-[#111111]/10 items-center justify-between flex-shrink-0">
+        <div className="flex items-center gap-8 text-xs lg:text-sm font-black uppercase tracking-wider text-[#111111]">
           <span>Web Development</span>
           <span className="text-[#8C21EF]">•</span>
           <span>App Development</span>
@@ -278,7 +343,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation }) => {
           <div className="w-8 h-8 rounded-lg bg-[#111111] text-white flex items-center justify-center group-hover:bg-[#8C21EF] transition-colors">
             <ArrowDownRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:translate-y-0.5 transition-transform" />
           </div>
-          <span className="text-xs font-black uppercase tracking-wider text-[#111111]">Discover our work</span>
+          <span className="text-xs lg:text-sm font-black uppercase tracking-wider text-[#111111]">Discover our work</span>
         </a>
       </div>
     </section>
