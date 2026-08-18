@@ -117,12 +117,12 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation }) => {
         </div>
       </div>
 
-      {/* ── MOBILE HERO LAYOUT (Natural Scrollable Flow) ── */}
-      <div className="flex md:hidden flex-col px-5 pt-8 pb-8 gap-6">
+      {/* ── MOBILE HERO LAYOUT (Subtly Reduced Image Height to Fit Buttons) ── */}
+      <div className="flex md:hidden flex-col px-4 sm:px-5 pt-6 pb-6 gap-5">
 
         {/* TOP: Headline & subtitle */}
-        <div className="flex flex-col gap-3">
-          <h1 className="text-[2.85rem] font-black tracking-[-0.01em] text-[#111111] font-display uppercase leading-[1.12]">
+        <div className="flex flex-col gap-2.5">
+          <h1 className="text-[2.65rem] sm:text-[2.85rem] font-black tracking-[-0.01em] text-[#111111] font-display uppercase leading-[1.12]">
             Navigate The<br />Future of Digital<br />
             <span className="inline-block relative h-[1.25em] overflow-visible align-bottom w-[85vw] pb-1 pr-4">
               <AnimatePresence mode="wait">
@@ -144,14 +144,14 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation }) => {
           </p>
         </div>
 
-        {/* MIDDLE: yoo.png image */}
-        <div className="flex items-center justify-center py-2">
+        {/* MIDDLE: yoo.png image (Increased size for big phone screens like S20 Ultra) */}
+        <div className="flex items-center justify-center py-1">
           <motion.img
             src={yooSrc}
             alt="Navigate Studio Showcase"
             whileHover={{ scale: 1.04 }}
             transition={{ duration: 0.4, ease: 'easeOut' }}
-            className="w-[90%] h-auto max-h-[380px] object-contain select-none drop-shadow-xl"
+            className="w-[85%] min-[390px]:w-[90%] min-[410px]:w-[92%] sm:w-[92%] h-auto max-h-[320px] min-[390px]:max-h-[370px] min-[410px]:max-h-[400px] sm:max-h-[430px] object-contain select-none drop-shadow-xl"
           />
         </div>
 
