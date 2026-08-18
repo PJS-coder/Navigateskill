@@ -81,7 +81,7 @@ export const OurWorkSection: React.FC<OurWorkSectionProps> = ({
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const isMobile = window.innerWidth < 768;
 
-    if (prefersReducedMotion) {
+    if (isMobile) {
       gsap.set('.project-card', { opacity: 1, y: 0, scale: 1 });
       gsap.set('.project-card-image', { clipPath: 'inset(0% 0% 0% 0%)' });
       gsap.set('.project-card-badge', { opacity: 1, y: 0 });
@@ -97,16 +97,9 @@ export const OurWorkSection: React.FC<OurWorkSectionProps> = ({
         const img = card.querySelector('.project-card-image');
         const badge = card.querySelector('.project-card-badge');
 
-        if (isMobile) {
-          // Ultra lightweight settings for low-end mobile hardware
-          gsap.set(card, { opacity: 0, y: 24, scale: 1 });
-          if (img) gsap.set(img, { clipPath: 'inset(0% 0% 0% 0%)' });
-          if (badge) gsap.set(badge, { opacity: 1, y: 0 });
-        } else {
-          gsap.set(card, { opacity: 0, y: 60, scale: 0.98 });
-          if (img) gsap.set(img, { clipPath: 'inset(100% 0% 0% 0%)' });
-          if (badge) gsap.set(badge, { opacity: 0, y: 20 });
-        }
+        gsap.set(card, { opacity: 0, y: 60, scale: 0.98 });
+        if (img) gsap.set(img, { clipPath: 'inset(100% 0% 0% 0%)' });
+        if (badge) gsap.set(badge, { opacity: 0, y: 20 });
       });
 
       batchTriggers = ScrollTrigger.batch('.project-card', {
@@ -117,43 +110,31 @@ export const OurWorkSection: React.FC<OurWorkSectionProps> = ({
             const img = card.querySelector('.project-card-image');
             const badge = card.querySelector('.project-card-badge');
 
-            if (isMobile) {
-              // Smooth, elegant fade-in pacing on mobile
-              gsap.to(card, {
-                opacity: 1,
-                y: 0,
-                duration: 0.75,
-                delay: idx * 0.1,
-                ease: 'power3.out',
-                force3D: true,
-              });
-            } else {
-              const tl = gsap.timeline({ delay: idx * 0.08 });
+            const tl = gsap.timeline({ delay: idx * 0.08 });
 
-              tl.to(card, {
-                opacity: 1,
-                y: 0,
-                scale: 1,
-                duration: 0.75,
+            tl.to(card, {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              duration: 0.75,
+              ease: 'power3.out',
+            }, 0);
+
+            if (img) {
+              tl.to(img, {
+                clipPath: 'inset(0% 0% 0% 0%)',
+                duration: 0.85,
                 ease: 'power3.out',
               }, 0);
+            }
 
-              if (img) {
-                tl.to(img, {
-                  clipPath: 'inset(0% 0% 0% 0%)',
-                  duration: 0.85,
-                  ease: 'power3.out',
-                }, 0);
-              }
-
-              if (badge) {
-                tl.to(badge, {
-                  opacity: 1,
-                  y: 0,
-                  duration: 0.6,
-                  ease: 'power3.out',
-                }, 0.1);
-              }
+            if (badge) {
+              tl.to(badge, {
+                opacity: 1,
+                y: 0,
+                duration: 0.6,
+                ease: 'power3.out',
+              }, 0.1);
             }
           });
         },
@@ -228,7 +209,7 @@ export const OurWorkSection: React.FC<OurWorkSectionProps> = ({
               <div
                 key={project.id}
                 onClick={onOpenConsultation}
-                className="project-card group relative rounded-3xl overflow-hidden shadow-2xl border border-[#111111]/10 bg-[#111111] cursor-pointer h-[460px] sm:h-[540px] flex items-end"
+                className="project-card group relative rounded-3xl overflow-hidden shadow-2xl border border-[#111111]/10 bg-[#111111] cursor-pointer h-[360px] sm:h-[480px] md:h-[540px] flex items-end"
               >
                 {/* FULL-BLEED IMAGE BLOCK WITH CLIP-PATH REVEAL */}
                 <div className="project-card-image absolute inset-0 overflow-hidden">

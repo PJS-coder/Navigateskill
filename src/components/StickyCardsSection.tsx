@@ -104,6 +104,71 @@ export const StickyCardsSection: React.FC<StickyCardsSectionProps> = ({
     }
   });
 
+  if (isMobile) {
+    return (
+      <div className="py-12 px-4 bg-[#efefeb] border-b border-[#111111]/[0.08]">
+        <div className="max-w-xl mx-auto space-y-6">
+          <div className="flex justify-end">
+            <div className="bg-[#8C21EF] text-[#F7F3EC] rounded-xl px-4 py-2 flex items-center gap-3 shadow-md">
+              <span className="text-[10px] font-extrabold uppercase tracking-wider font-display">
+                WHAT WE DO
+              </span>
+              <span className="text-lg font-black font-display opacity-90 border-l border-white/20 pl-2">
+                03
+              </span>
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            {cardsData.map((item) => (
+              <div
+                key={item.id}
+                className="bg-[#DCE3E8] border border-white/80 p-5 rounded-2xl shadow-sm flex flex-col justify-between space-y-4"
+              >
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between text-xs font-black uppercase tracking-wider text-[#8C21EF]">
+                    <span>{item.category}</span>
+                    <span className="w-2 h-2 rounded-full bg-[#8C21EF]" />
+                  </div>
+
+                  <h3 className="text-2xl font-black text-[#111111] font-display uppercase tracking-tight leading-tight">
+                    {item.title}
+                  </h3>
+
+                  <p className="text-xs font-medium text-[#111111]/80 leading-relaxed">
+                    {item.description}
+                  </p>
+                </div>
+
+                <div className="flex items-end justify-between pt-3 border-t border-[#111111]/10">
+                  <div className="space-y-0.5 text-xs font-bold text-[#111111]">
+                    {item.tags.map((tag, tagIdx) => (
+                      <div key={tagIdx} className="leading-tight">
+                        {tag}
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="text-4xl font-black font-display text-[#111111] leading-none">
+                    {item.num}
+                  </div>
+                </div>
+
+                <button
+                  onClick={onOpenConsultation}
+                  className="py-2.5 px-4 rounded-xl bg-[#111111] text-white text-[11px] font-black uppercase tracking-wider flex items-center justify-between hover:bg-[#8C21EF] transition-colors shadow-sm"
+                >
+                  <span>Explore {item.title}</span>
+                  <ArrowUpRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div ref={containerRef} className="relative h-[420vh] md:h-[500vh] bg-[#efefeb]">
       
@@ -242,3 +307,4 @@ export const StickyCardsSection: React.FC<StickyCardsSectionProps> = ({
     </div>
   );
 };
+

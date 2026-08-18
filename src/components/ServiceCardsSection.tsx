@@ -132,6 +132,15 @@ interface ServiceCardsSectionProps {
 export const ServiceCardsSection: React.FC<ServiceCardsSectionProps> = ({
   onOpenConsultation,
 }) => {
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   return (
     <section className="py-24 px-6 md:px-12 border-b border-[#111111]/[0.08] bg-[#EFE8DE]/60 relative overflow-hidden">
       <div className="max-w-7xl mx-auto space-y-16">
@@ -158,10 +167,10 @@ export const ServiceCardsSection: React.FC<ServiceCardsSectionProps> = ({
             return (
               <motion.div
                 key={item.id}
-                initial={{ opacity: 0, y: 50, scale: 0.95 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                initial={isMobile ? false : { opacity: 0, y: 50, scale: 0.95 }}
+                whileInView={isMobile ? { opacity: 1, y: 0, scale: 1 } : { opacity: 1, y: 0, scale: 1 }}
                 viewport={{ once: true, margin: '-50px' }}
-                transition={{ duration: 0.5, delay: (index % 3) * 0.15 }}
+                transition={{ duration: 0.5, delay: isMobile ? 0 : (index % 3) * 0.15 }}
                 className="group relative bg-[#E5E9EF] border border-[#111111]/10 p-7 rounded-3xl shadow-sm hover:shadow-xl hover:bg-white transition-all duration-300 flex flex-col justify-between h-[280px] overflow-hidden"
               >
                 {/* Accent Corner Flash */}

@@ -1,0 +1,21 @@
+1:"$Sreact.fragment"
+2:I[9766,[],""]
+3:I[8924,[],""]
+4:I[2619,["345","static/chunks/app/not-found-635a7c80fc42e5e5.js"],""]
+5:I[1959,[],"ClientPageRoot"]
+6:I[9917,["592","static/chunks/c15bf2b0-52e8419f34af26ab.js","846","static/chunks/846-5b13b880cf88d6ca.js","974","static/chunks/app/page-8c7682c35b070f45.js"],"default"]
+9:I[4431,[],"OutletBoundary"]
+b:I[5278,[],"AsyncMetadataOutlet"]
+d:I[4431,[],"ViewportBoundary"]
+f:I[4431,[],"MetadataBoundary"]
+10:"$Sreact.suspense"
+12:I[7150,[],""]
+:HL["/_next/static/css/5efbfb601040921c.css","style"]
+0:{"P":null,"b":"gC_LqE6PFdmZm37E-Bdgq","p":"","c":["",""],"i":false,"f":[[["",{"children":["__PAGE__",{}]},"$undefined","$undefined",true],["",["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/5efbfb601040921c.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","html",null,{"lang":"en","className":"scroll-smooth","children":[["$","head",null,{"children":[["$","link",null,{"rel":"preconnect","href":"https://fonts.googleapis.com"}],["$","link",null,{"rel":"preconnect","href":"https://fonts.gstatic.com","crossOrigin":"anonymous"}],["$","link",null,{"href":"https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;600;800;900&family=Playfair+Display:ital,wght@0,600;0,800;0,900;1,600;1,800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap","rel":"stylesheet"}]]}],["$","body",null,{"className":"bg-[#F7F3EC] text-[#111111] font-sans antialiased selection:bg-[#8C21EF] selection:text-[#F7F3EC] overflow-x-hidden","children":["$","$L2",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L3",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[["$","div",null,{"className":"min-h-screen flex flex-col items-center justify-center bg-[#F7F3EC] text-[#111111] px-6 text-center","children":[["$","h1",null,{"className":"text-6xl font-black font-display text-[#8C21EF] mb-4","children":"404"}],["$","h2",null,{"className":"text-2xl font-bold font-display uppercase mb-2","children":"Page Not Found"}],["$","p",null,{"className":"text-sm text-[#111111]/70 mb-6 max-w-md","children":"The page you are looking for does not exist or has been moved."}],["$","$L4",null,{"href":"/","className":"px-6 py-3 rounded-xl bg-[#111111] text-[#F7F3EC] text-xs font-black uppercase tracking-wider hover:bg-[#8C21EF] transition-colors shadow-md","children":"Return Home"}]]}],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]}]]}]]}],{"children":["__PAGE__",["$","$1","c",{"children":[["$","$L5",null,{"Component":"$6","searchParams":{},"params":{},"promises":["$@7","$@8"]}],null,["$","$L9",null,{"children":["$La",["$","$Lb",null,{"promise":"$@c"}]]}]]}],{},null,false]},null,false],["$","$1","h",{"children":[null,[["$","$Ld",null,{"children":"$Le"}],null],["$","$Lf",null,{"children":["$","div",null,{"hidden":true,"children":["$","$10",null,{"fallback":null,"children":"$L11"}]}]}]]}],false]],"m":"$undefined","G":["$12",[]],"s":false,"S":true}
+7:{}
+8:"$0:f:0:1:2:children:1:props:children:0:props:params"
+e:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
+a:null
+13:I[622,[],"IconMark"]
+c:{"metadata":[["$","title","0",{"children":"Navigate Skill — Modern IT & Digital Solutions Studio"}],["$","meta","1",{"name":"description","content":"Navigateskill turns brands into digital powerhouses through intelligent marketing, creative strategy, web development, app engineering, and next-gen automation."}],["$","link","2",{"rel":"icon","href":"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%238C21EF'><path d='M12 2L2 19h20L12 2zm0 3.8L18.5 17H5.5L12 5.8z'/></svg>"}],["$","$L13","3",{}]],"error":null,"digest":"$undefined"}
+11:"$c:metadata"

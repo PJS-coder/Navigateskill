@@ -68,6 +68,103 @@ const cardsData: CardItem[] = [
   },
 ];
 
+interface DoCardItemProps {
+  item: CardItem;
+  index: number;
+  cardCount: number;
+  scrollYProgress: any;
+  isMobile: boolean;
+  onOpenConsultation: () => void;
+}
+
+const DoCardItem: React.FC<DoCardItemProps> = ({
+  item,
+  index,
+  cardCount,
+  scrollYProgress,
+  isMobile,
+  onOpenConsultation,
+}) => {
+  const stepRange = 0.72 / cardCount;
+  const startScroll = 0.18 + index * stepRange;
+  const targetScroll = startScroll + stepRange * 0.7;
+
+  const cardY = useTransform(
+    scrollYProgress,
+    [startScroll - 0.08, targetScroll],
+    [isMobile ? 180 : 900, 0]
+  );
+
+  const cardOpacity = useTransform(
+    scrollYProgress,
+    [startScroll - 0.08, startScroll - 0.02, targetScroll, 1],
+    [0, 1, 1, 1]
+  );
+
+  const cardRotate = useTransform(
+    scrollYProgress,
+    [startScroll - 0.08, targetScroll],
+    [isMobile ? 2 : 8, item.rotation]
+  );
+
+  const cardScale = useTransform(
+    scrollYProgress,
+    [startScroll - 0.08, targetScroll],
+    [0.96, 1]
+  );
+
+  return (
+    <motion.div
+      style={{
+        y: cardY,
+        opacity: cardOpacity,
+        rotate: cardRotate,
+        scale: cardScale,
+        zIndex: 10 + index,
+        willChange: 'transform, opacity',
+      }}
+      className="absolute inset-0 bg-[#dfe5e8] border border-white/80 p-5 sm:p-10 rounded-2xl sm:rounded-[28px] shadow-lg md:shadow-[0_30px_80px_rgba(0,0,0,0.18)] hover:shadow-2xl transition-shadow duration-300 flex flex-col justify-between select-none overflow-hidden"
+    >
+      <div className="space-y-2 sm:space-y-4">
+        <div className="flex items-center justify-between text-[10px] sm:text-xs font-black uppercase tracking-wider text-[#8C21EF]">
+          <span>{item.category}</span>
+          <span className="w-2 h-2 rounded-full bg-[#8C21EF]" />
+        </div>
+
+        <h3 className="text-xl sm:text-4xl font-black text-[#111111] font-display uppercase tracking-tight leading-[0.95]">
+          {item.title}
+        </h3>
+
+        <p className="text-[11px] sm:text-sm font-semibold text-[#111111]/80 leading-relaxed">
+          {item.description}
+        </p>
+      </div>
+
+      <div className="flex items-end justify-between pt-2 sm:pt-4 border-t border-[#111111]/10">
+        <div className="space-y-0.5 sm:space-y-1 text-[10px] sm:text-xs font-extrabold text-[#111111]">
+          {item.tags.map((tag, tagIdx) => (
+            <div key={tagIdx} className="leading-tight">
+              {tag}
+            </div>
+          ))}
+        </div>
+
+        <div className="text-4xl sm:text-7xl font-black font-display text-[#111111] leading-none">
+          {item.num}
+        </div>
+      </div>
+
+      <button
+        onClick={onOpenConsultation}
+        className="mt-2 sm:mt-3 py-2 sm:py-2.5 px-3.5 sm:px-4 rounded-xl bg-[#111111] text-white text-[10px] sm:text-[11px] font-black uppercase tracking-wider flex items-center justify-between hover:bg-[#8C21EF] transition-colors shadow-sm"
+      >
+        <span>Request Service</span>
+        <ArrowUpRight className="w-3.5 h-3.5" />
+      </button>
+    </motion.div>
+  );
+};
+
 interface WhatWeDoSectionProps {
   onOpenConsultation: () => void;
 }
@@ -92,6 +189,97 @@ export const WhatWeDoSection: React.FC<WhatWeDoSectionProps> = ({
 
   // Background Opacity smoothly mapped to initial scroll (0.08 -> 0.20)
   const bgOpacity = useTransform(scrollYProgress, [0.08, 0.20], [1, 0.45]);
+  const progressWidth = useTransform(scrollYProgress, [0.18, 0.88], ['0%', '100%']);
+
+  if (isMobile) {
+    return (
+      <section id="what-we-do" className="py-12 px-4 bg-[#efefeb] border-b border-[#111111]/[0.08] relative">
+        <div className="max-w-xl mx-auto space-y-8">
+          
+          {/* TOP RIGHT BADGE */}
+          <div className="flex justify-end">
+            <div className="bg-[#8C21EF] text-[#F7F3EC] rounded-xl px-4 py-2 flex items-center gap-3 shadow-md">
+              <span className="text-[10px] font-extrabold uppercase tracking-wider font-display">
+                WHAT WE DO
+              </span>
+              <span className="text-lg font-black font-display opacity-90 border-l border-white/20 pl-2">
+                03
+              </span>
+            </div>
+          </div>
+
+          {/* EDITORIAL HEADER */}
+          <div className="space-y-4">
+            <h2 className="text-4xl font-black text-[#111111] uppercase font-display leading-tight">
+              WHAT WE DO
+            </h2>
+            <TextScrollReveal
+              as="p"
+              className="text-sm font-bold text-[#111111] leading-relaxed tracking-tight"
+              text="Vision is nothing without execution. We build both. We create campaigns, films, and the systems that get them made."
+            />
+            <div>
+              <a
+                href="#our-work"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#111111] text-[#F7F3EC] text-xs font-black uppercase tracking-widest hover:bg-[#8C21EF] transition-all shadow-md"
+              >
+                <span>OUR SERVICES</span>
+                <ArrowUpRight className="w-3.5 h-3.5" />
+              </a>
+            </div>
+          </div>
+
+          {/* CLEAN VERTICAL CARD LIST FOR MOBILE */}
+          <div className="space-y-4 pt-2">
+            {cardsData.map((item) => (
+              <div
+                key={item.id}
+                className="bg-[#dfe5e8] border border-white/80 p-5 rounded-2xl shadow-sm flex flex-col justify-between space-y-4"
+              >
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between text-[10px] font-black uppercase tracking-wider text-[#8C21EF]">
+                    <span>{item.category}</span>
+                    <span className="w-2 h-2 rounded-full bg-[#8C21EF]" />
+                  </div>
+
+                  <h3 className="text-xl font-black text-[#111111] font-display uppercase tracking-tight leading-tight">
+                    {item.title}
+                  </h3>
+
+                  <p className="text-xs font-semibold text-[#111111]/80 leading-relaxed">
+                    {item.description}
+                  </p>
+                </div>
+
+                <div className="flex items-end justify-between pt-3 border-t border-[#111111]/10">
+                  <div className="space-y-0.5 text-[10px] font-extrabold text-[#111111]">
+                    {item.tags.map((tag, tagIdx) => (
+                      <div key={tagIdx} className="leading-tight">
+                        {tag}
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="text-4xl font-black font-display text-[#111111] leading-none">
+                    {item.num}
+                  </div>
+                </div>
+
+                <button
+                  onClick={onOpenConsultation}
+                  className="py-2.5 px-4 rounded-xl bg-[#111111] text-white text-[11px] font-black uppercase tracking-wider flex items-center justify-between hover:bg-[#8C21EF] transition-colors shadow-sm"
+                >
+                  <span>Request Service</span>
+                  <ArrowUpRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="what-we-do" ref={containerRef} className="relative w-full h-[420vh] md:h-[450vh] bg-[#efefeb]">
@@ -165,88 +353,17 @@ export const WhatWeDoSection: React.FC<WhatWeDoSectionProps> = ({
             {/* CONTINUOUS SCROLL-DRIVEN FLOATING CARD LAYER */}
             <div className="absolute inset-0 flex items-center justify-center z-30 px-3 sm:px-4 pointer-events-none">
               <div className="relative w-[300px] sm:w-[420px] h-[400px] sm:h-[540px] pointer-events-auto">
-                {cardsData.map((item, index) => {
-                  const cardCount = cardsData.length;
-                  const stepRange = 0.72 / cardCount;
-                  const startScroll = 0.18 + index * stepRange;
-                  const targetScroll = startScroll + stepRange * 0.7;
-
-                  const cardY = useTransform(
-                    scrollYProgress,
-                    [startScroll - 0.08, targetScroll],
-                    [isMobile ? 180 : 900, 0]
-                  );
-
-                  const cardOpacity = useTransform(
-                    scrollYProgress,
-                    [startScroll - 0.08, startScroll - 0.02, targetScroll, 1],
-                    [0, 1, 1, 1]
-                  );
-
-                  const cardRotate = useTransform(
-                    scrollYProgress,
-                    [startScroll - 0.08, targetScroll],
-                    [isMobile ? 2 : 8, item.rotation]
-                  );
-
-                  const cardScale = useTransform(
-                    scrollYProgress,
-                    [startScroll - 0.08, targetScroll],
-                    [0.96, 1]
-                  );
-
-                  return (
-                    <motion.div
-                      key={item.id}
-                      style={{
-                        y: cardY,
-                        opacity: cardOpacity,
-                        rotate: cardRotate,
-                        scale: cardScale,
-                        zIndex: 10 + index,
-                        willChange: 'transform, opacity',
-                      }}
-                      className="absolute inset-0 bg-[#dfe5e8] border border-white/80 p-5 sm:p-10 rounded-2xl sm:rounded-[28px] shadow-lg md:shadow-[0_30px_80px_rgba(0,0,0,0.18)] hover:shadow-2xl transition-shadow duration-300 flex flex-col justify-between select-none overflow-hidden"
-                    >
-                      <div className="space-y-2 sm:space-y-4">
-                        <div className="flex items-center justify-between text-[10px] sm:text-xs font-black uppercase tracking-wider text-[#8C21EF]">
-                          <span>{item.category}</span>
-                          <span className="w-2 h-2 rounded-full bg-[#8C21EF]" />
-                        </div>
-
-                        <h3 className="text-xl sm:text-4xl font-black text-[#111111] font-display uppercase tracking-tight leading-[0.95]">
-                          {item.title}
-                        </h3>
-
-                        <p className="text-[11px] sm:text-sm font-semibold text-[#111111]/80 leading-relaxed">
-                          {item.description}
-                        </p>
-                      </div>
-
-                      <div className="flex items-end justify-between pt-2 sm:pt-4 border-t border-[#111111]/10">
-                        <div className="space-y-0.5 sm:space-y-1 text-[10px] sm:text-xs font-extrabold text-[#111111]">
-                          {item.tags.map((tag, tagIdx) => (
-                            <div key={tagIdx} className="leading-tight">
-                              {tag}
-                            </div>
-                          ))}
-                        </div>
-
-                        <div className="text-4xl sm:text-7xl font-black font-display text-[#111111] leading-none">
-                          {item.num}
-                        </div>
-                      </div>
-
-                      <button
-                        onClick={onOpenConsultation}
-                        className="mt-2 sm:mt-3 py-2 sm:py-2.5 px-3.5 sm:px-4 rounded-xl bg-[#111111] text-white text-[10px] sm:text-[11px] font-black uppercase tracking-wider flex items-center justify-between hover:bg-[#8C21EF] transition-colors shadow-sm"
-                      >
-                        <span>Request Service</span>
-                        <ArrowUpRight className="w-3.5 h-3.5" />
-                      </button>
-                    </motion.div>
-                  );
-                })}
+                {cardsData.map((item, index) => (
+                  <DoCardItem
+                    key={item.id}
+                    item={item}
+                    index={index}
+                    cardCount={cardsData.length}
+                    scrollYProgress={scrollYProgress}
+                    isMobile={isMobile}
+                    onOpenConsultation={onOpenConsultation}
+                  />
+                ))}
               </div>
             </div>
 
@@ -262,7 +379,7 @@ export const WhatWeDoSection: React.FC<WhatWeDoSectionProps> = ({
               <motion.div
                 className="h-full bg-[#8C21EF]"
                 style={{
-                  width: useTransform(scrollYProgress, [0.18, 0.88], ['0%', '100%']),
+                  width: progressWidth,
                 }}
               />
             </div>
@@ -275,3 +392,5 @@ export const WhatWeDoSection: React.FC<WhatWeDoSectionProps> = ({
     </section>
   );
 };
+
+
