@@ -29,10 +29,10 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation }) => {
   return (
     <section
       id="hero"
-      className="w-full h-screen max-h-screen relative flex flex-col bg-[#F7F3EC] border-b border-[#111111]/[0.08] overflow-hidden"
+      className="w-full min-h-screen relative flex flex-col bg-[#F7F3EC] border-b border-[#111111]/[0.08]"
     >
       {/* ── NAVBAR ── */}
-      <div className="w-full px-4 sm:px-6 z-30 flex-shrink-0">
+      <div className="w-full px-4 sm:px-6 z-30 flex-shrink-0 pt-2 sm:pt-4">
         <div className="max-w-[1800px] mx-auto">
           <div className="bg-[#EAE4D9]/90 backdrop-blur-md border border-[#111111]/10 rounded-b-2xl sm:rounded-2xl px-3 py-2 sm:p-2.5 flex items-center justify-between shadow-sm">
 
@@ -117,11 +117,11 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation }) => {
         </div>
       </div>
 
-      {/* ── MOBILE HERO LAYOUT (hidden on md+) ── */}
-      <div className="flex md:hidden flex-col flex-1 px-5 pt-14 pb-3">
+      {/* ── MOBILE HERO LAYOUT (Natural Scrollable Flow) ── */}
+      <div className="flex md:hidden flex-col px-5 pt-8 pb-8 gap-6">
 
         {/* TOP: Headline & subtitle */}
-        <div className="flex-shrink-0 flex flex-col gap-3">
+        <div className="flex flex-col gap-3">
           <h1 className="text-[2.85rem] font-black tracking-[-0.01em] text-[#111111] font-display uppercase leading-[1.12]">
             Navigate The<br />Future of Digital<br />
             <span className="inline-block relative h-[1.25em] overflow-visible align-bottom w-[85vw] pb-1 pr-4">
@@ -139,45 +139,45 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation }) => {
               </AnimatePresence>
             </span>
           </h1>
-          <p className="text-[11.5px] text-[#111111]/70 font-medium leading-relaxed max-w-sm">
+          <p className="text-xs text-[#111111]/80 font-medium leading-relaxed max-w-sm">
             Navigateskill turns brands into digital powerhouses — through intelligent marketing, creative strategy, and next-gen automation.
           </p>
         </div>
 
-        {/* MIDDLE: yoo.png image — centred, fills remaining space */}
-        <div className="flex-1 flex items-center justify-center min-h-0 py-2">
+        {/* MIDDLE: yoo.png image */}
+        <div className="flex items-center justify-center py-2">
           <motion.img
             src={yooSrc}
             alt="Navigate Studio Showcase"
             whileHover={{ scale: 1.04 }}
             transition={{ duration: 0.4, ease: 'easeOut' }}
-            className="w-[82%] h-auto max-h-[36vh] object-contain select-none drop-shadow-xl"
+            className="w-[90%] h-auto max-h-[380px] object-contain select-none drop-shadow-xl"
           />
         </div>
 
         {/* BOTTOM: CTA Buttons + Discipline bar */}
-        <div className="flex-shrink-0 flex flex-col gap-2.5">
+        <div className="flex flex-col gap-3">
           {/* CTA Buttons */}
           <div className="flex items-center gap-2.5">
             <button
               onClick={onOpenConsultation}
-              className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-full bg-[#111111] text-[#F7F3EC] text-[10px] font-black uppercase tracking-wider hover:bg-[#8C21EF] transition-all duration-300 shadow-md"
+              className="flex-1 flex items-center justify-center gap-1.5 py-3 rounded-full bg-[#111111] text-[#F7F3EC] text-xs font-black uppercase tracking-wider hover:bg-[#8C21EF] transition-all duration-300 shadow-md"
             >
               <span>Get Started</span>
-              <ArrowUpRight className="w-3 h-3" />
+              <ArrowUpRight className="w-3.5 h-3.5" />
             </button>
             <a
               href="#what-we-offer"
-              className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-full bg-[#EFE8DE] text-[#111111] text-[10px] font-black uppercase tracking-wider hover:bg-[#111111] hover:text-white transition-all duration-300"
+              className="flex-1 flex items-center justify-center gap-1.5 py-3 rounded-full bg-[#EFE8DE] text-[#111111] text-xs font-black uppercase tracking-wider hover:bg-[#111111] hover:text-white transition-all duration-300"
             >
               <span>Our Services</span>
-              <ArrowRight className="w-3 h-3" />
+              <ArrowRight className="w-3.5 h-3.5" />
             </a>
           </div>
 
           {/* Discipline tags + Discover */}
-          <div className="pt-2 border-t border-[#111111]/10 flex items-center justify-between">
-            <div className="flex items-center gap-2 text-[9px] font-black uppercase tracking-wider text-[#111111]/70">
+          <div className="pt-3 border-t border-[#111111]/10 flex items-center justify-between">
+            <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-wider text-[#111111]/70">
               <span>Web Dev</span>
               <span className="text-[#8C21EF]">•</span>
               <span>App Dev</span>
@@ -191,7 +191,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation }) => {
               <div className="w-5 h-5 rounded-md bg-[#111111] text-white flex items-center justify-center group-hover:bg-[#8C21EF] transition-colors">
                 <ArrowDownRight className="w-2.5 h-2.5" />
               </div>
-              <span className="text-[9px] font-black uppercase tracking-wider text-[#111111]">Discover</span>
+              <span className="text-[10px] font-black uppercase tracking-wider text-[#111111]">Discover</span>
             </a>
           </div>
         </div>

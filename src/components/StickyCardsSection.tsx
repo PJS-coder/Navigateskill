@@ -76,6 +76,14 @@ export const StickyCardsSection: React.FC<StickyCardsSectionProps> = ({
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeCardCount, setActiveCardCount] = useState<number>(1);
+  const [isMobile, setIsMobile] = useState(false);
+
+  React.useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -97,67 +105,68 @@ export const StickyCardsSection: React.FC<StickyCardsSectionProps> = ({
   });
 
   return (
-    <div ref={containerRef} className="relative h-[500vh] bg-[#efefeb]">
+    <div ref={containerRef} className="relative h-[420vh] md:h-[500vh] bg-[#efefeb]">
       
       {/* INNER STICKY CONTAINER (100VH) - LOCKED IN VIEWPORT */}
-      <div className="sticky top-0 h-screen flex flex-col justify-between py-6 px-6 md:px-12 border-b border-[#111111]/[0.08] overflow-hidden">
+      <div className="sticky top-0 h-screen flex flex-col justify-between py-4 sm:py-6 px-4 sm:px-6 md:px-12 border-b border-[#111111]/[0.08] overflow-hidden">
         
         <div className="max-w-7xl mx-auto w-full h-full flex flex-col justify-between relative">
           
           {/* TOP RIGHT BADGE */}
           <div className="flex justify-end relative z-20 flex-shrink-0">
-            <div className="bg-[#8C21EF] text-[#F7F3EC] rounded-xl px-5 py-2.5 sm:px-6 sm:py-3 flex items-center gap-4 sm:gap-6 shadow-md">
-              <span className="text-xs sm:text-sm font-extrabold uppercase tracking-wider font-display">
+            <div className="bg-[#8C21EF] text-[#F7F3EC] rounded-xl px-4 py-2 sm:px-6 sm:py-3 flex items-center gap-3 sm:gap-6 shadow-md">
+              <span className="text-[10px] sm:text-sm font-extrabold uppercase tracking-wider font-display">
                 THE THIRD THING YOU SHOULD KNOW WHAT WE DO
               </span>
-              <span className="text-xl sm:text-3xl font-black font-display opacity-90 border-l border-white/20 pl-3">
+              <span className="text-lg sm:text-3xl font-black font-display opacity-90 border-l border-white/20 pl-2 sm:pl-3">
                 03
               </span>
             </div>
           </div>
 
-          {/* BACKGROUND TYPOGRAPHY LAYER (100% FIXED / STATIONARY OVERSIZED BLURRED TEXT) */}
+          {/* BACKGROUND TYPOGRAPHY LAYER */}
           <div className="relative my-auto py-2 flex-grow flex flex-col justify-center select-none">
             
-            <div className="space-y-1 filter blur-[4px] opacity-35 tracking-tighter">
-              <h2 className="text-7xl sm:text-9xl md:text-[13rem] lg:text-[16rem] font-black text-[#111111] uppercase font-display leading-[0.82]">
+            <div className="space-y-1 opacity-35 tracking-tighter">
+              <h2 className="text-5xl sm:text-9xl md:text-[13rem] lg:text-[16rem] font-black text-[#111111] uppercase font-display leading-[0.82]">
                 WHAT
               </h2>
 
               <div className="flex justify-end">
-                <span className="text-7xl sm:text-9xl md:text-[13rem] lg:text-[16rem] font-black text-[#111111] uppercase font-display leading-[0.82]">
+                <span className="text-5xl sm:text-9xl md:text-[13rem] lg:text-[16rem] font-black text-[#111111] uppercase font-display leading-[0.82]">
                   WE
                 </span>
               </div>
 
-              <h2 className="text-7xl sm:text-9xl md:text-[13rem] lg:text-[16rem] font-black text-[#111111] uppercase font-display leading-[0.82]">
+              <h2 className="text-5xl sm:text-9xl md:text-[13rem] lg:text-[16rem] font-black text-[#111111] uppercase font-display leading-[0.82]">
                 DO
               </h2>
             </div>
 
-            {/* FOREGROUND CARDS LAYER - CENTERED STACK OF FLOATING STRATEGY CARDS */}
-            <div className="absolute inset-0 flex items-center justify-center z-30 px-4 pointer-events-none">
-              <div className="relative w-[340px] sm:w-[420px] h-[460px] pointer-events-auto">
+            {/* FOREGROUND CARDS LAYER */}
+            <div className="absolute inset-0 flex items-center justify-center z-30 px-3 sm:px-4 pointer-events-none">
+              <div className="relative w-[300px] sm:w-[420px] h-[400px] sm:h-[460px] pointer-events-auto">
                 {cardsData.map((item, index) => {
                   const isRevealed = index < activeCardCount;
 
                   return (
                     <motion.div
                       key={item.id}
-                      initial={{ y: 120, opacity: 0, rotate: 6, scale: 0.98 }}
+                      initial={{ y: isMobile ? 40 : 120, opacity: 0, rotate: isMobile ? 1 : 6, scale: 0.98 }}
                       animate={
                         isRevealed
-                          ? { y: 0, opacity: 1, rotate: item.rotation, scale: 1 }
-                          : { y: 120, opacity: 0, rotate: 6, scale: 0.98 }
+                          ? { y: 0, opacity: 1, rotate: isMobile ? (index % 2 === 0 ? -1 : 1) : item.rotation, scale: 1 }
+                          : { y: isMobile ? 40 : 120, opacity: 0, rotate: isMobile ? 1 : 6, scale: 0.98 }
                       }
                       transition={{
-                        duration: 0.55,
+                        duration: 0.35,
                         ease: [0.25, 0.1, 0.25, 1],
                       }}
                       style={{
                         zIndex: 10 + index,
+                        willChange: 'transform, opacity',
                       }}
-                      className="absolute inset-0 bg-[#DCE3E8] border border-white/80 p-8 sm:p-10 rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.12)] hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between select-none overflow-hidden"
+                      className="absolute inset-0 bg-[#DCE3E8] border border-white/80 p-5 sm:p-10 rounded-2xl shadow-lg md:shadow-[0_20px_60px_rgba(0,0,0,0.12)] hover:shadow-2xl transition-all duration-300 flex flex-col justify-between select-none overflow-hidden"
                     >
                       {/* TOP AREA: Heading & Description */}
                       <div className="space-y-4">

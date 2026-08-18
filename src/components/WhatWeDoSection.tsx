@@ -76,21 +76,28 @@ export const WhatWeDoSection: React.FC<WhatWeDoSectionProps> = ({
   onOpenConsultation,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start start', 'end end'],
   });
 
-  // Background Blur & Opacity smoothly mapped to initial scroll (0.08 -> 0.20)
-  const bgBlur = useTransform(scrollYProgress, [0.08, 0.20], ['blur(0px)', 'blur(8px)']);
-  const bgOpacity = useTransform(scrollYProgress, [0.08, 0.20], [1, 0.55]);
+  // Background Opacity smoothly mapped to initial scroll (0.08 -> 0.20)
+  const bgOpacity = useTransform(scrollYProgress, [0.08, 0.20], [1, 0.45]);
 
   return (
-    <section id="what-we-do" ref={containerRef} className="relative w-full h-[450vh] bg-[#efefeb]">
+    <section id="what-we-do" ref={containerRef} className="relative w-full h-[420vh] md:h-[450vh] bg-[#efefeb]">
 
       {/* INNER STICKY CONTAINER (100VH) - PINNED PERFECTLY IN VIEWPORT */}
-      <div className="sticky top-0 left-0 w-full h-screen flex flex-col justify-between py-4 sm:py-6 px-6 md:px-12 border-b border-[#111111]/[0.08] overflow-hidden bg-[#efefeb] z-20">
+      <div className="sticky top-0 left-0 w-full h-screen flex flex-col justify-between py-4 sm:py-6 px-4 sm:px-6 md:px-12 border-b border-[#111111]/[0.08] overflow-hidden bg-[#efefeb] z-20">
 
         <div className="max-w-7xl mx-auto w-full h-full flex flex-col justify-between relative">
 
@@ -111,7 +118,6 @@ export const WhatWeDoSection: React.FC<WhatWeDoSectionProps> = ({
 
             <motion.div
               style={{
-                filter: bgBlur,
                 opacity: bgOpacity,
               }}
               className="space-y-1 tracking-tighter"
@@ -156,9 +162,9 @@ export const WhatWeDoSection: React.FC<WhatWeDoSectionProps> = ({
               </div>
             </motion.div>
 
-            {/* CONTINUOUS SCROLL-DRIVEN FLOATING CARD LAYER (SLIDES UP FROM OFF-SCREEN BOTTOM) */}
+            {/* CONTINUOUS SCROLL-DRIVEN FLOATING CARD LAYER */}
             <div className="absolute inset-0 flex items-center justify-center z-30 px-3 sm:px-4 pointer-events-none">
-              <div className="relative w-[300px] sm:w-[420px] h-[440px] sm:h-[540px] pointer-events-auto">
+              <div className="relative w-[300px] sm:w-[420px] h-[400px] sm:h-[540px] pointer-events-auto">
                 {cardsData.map((item, index) => {
                   const cardCount = cardsData.length;
                   const stepRange = 0.72 / cardCount;
@@ -168,7 +174,7 @@ export const WhatWeDoSection: React.FC<WhatWeDoSectionProps> = ({
                   const cardY = useTransform(
                     scrollYProgress,
                     [startScroll - 0.08, targetScroll],
-                    [900, 0]
+                    [isMobile ? 180 : 900, 0]
                   );
 
                   const cardOpacity = useTransform(
@@ -180,13 +186,13 @@ export const WhatWeDoSection: React.FC<WhatWeDoSectionProps> = ({
                   const cardRotate = useTransform(
                     scrollYProgress,
                     [startScroll - 0.08, targetScroll],
-                    [8, item.rotation]
+                    [isMobile ? 2 : 8, item.rotation]
                   );
 
                   const cardScale = useTransform(
                     scrollYProgress,
                     [startScroll - 0.08, targetScroll],
-                    [0.92, 1]
+                    [0.96, 1]
                   );
 
                   return (
@@ -198,26 +204,27 @@ export const WhatWeDoSection: React.FC<WhatWeDoSectionProps> = ({
                         rotate: cardRotate,
                         scale: cardScale,
                         zIndex: 10 + index,
+                        willChange: 'transform, opacity',
                       }}
-                      className="absolute inset-0 bg-[#dfe5e8] border border-white/80 p-6 sm:p-10 rounded-2xl sm:rounded-[28px] shadow-[0_30px_80px_rgba(0,0,0,0.18)] hover:shadow-2xl hover:-translate-y-1 transition-shadow duration-300 flex flex-col justify-between select-none overflow-hidden"
+                      className="absolute inset-0 bg-[#dfe5e8] border border-white/80 p-5 sm:p-10 rounded-2xl sm:rounded-[28px] shadow-lg md:shadow-[0_30px_80px_rgba(0,0,0,0.18)] hover:shadow-2xl transition-shadow duration-300 flex flex-col justify-between select-none overflow-hidden"
                     >
-                      <div className="space-y-3 sm:space-y-4">
+                      <div className="space-y-2 sm:space-y-4">
                         <div className="flex items-center justify-between text-[10px] sm:text-xs font-black uppercase tracking-wider text-[#8C21EF]">
                           <span>{item.category}</span>
                           <span className="w-2 h-2 rounded-full bg-[#8C21EF]" />
                         </div>
 
-                        <h3 className="text-2xl sm:text-4xl font-black text-[#111111] font-display uppercase tracking-tight leading-[0.95]">
+                        <h3 className="text-xl sm:text-4xl font-black text-[#111111] font-display uppercase tracking-tight leading-[0.95]">
                           {item.title}
                         </h3>
 
-                        <p className="text-xs sm:text-sm font-semibold text-[#111111]/80 leading-relaxed">
+                        <p className="text-[11px] sm:text-sm font-semibold text-[#111111]/80 leading-relaxed">
                           {item.description}
                         </p>
                       </div>
 
-                      <div className="flex items-end justify-between pt-3 sm:pt-4 border-t border-[#111111]/10">
-                        <div className="space-y-0.5 sm:space-y-1 text-[11px] sm:text-xs font-extrabold text-[#111111]">
+                      <div className="flex items-end justify-between pt-2 sm:pt-4 border-t border-[#111111]/10">
+                        <div className="space-y-0.5 sm:space-y-1 text-[10px] sm:text-xs font-extrabold text-[#111111]">
                           {item.tags.map((tag, tagIdx) => (
                             <div key={tagIdx} className="leading-tight">
                               {tag}
@@ -225,7 +232,7 @@ export const WhatWeDoSection: React.FC<WhatWeDoSectionProps> = ({
                           ))}
                         </div>
 
-                        <div className="text-5xl sm:text-7xl font-black font-display text-[#111111] leading-none">
+                        <div className="text-4xl sm:text-7xl font-black font-display text-[#111111] leading-none">
                           {item.num}
                         </div>
                       </div>

@@ -43,23 +43,31 @@ const aboutImages: AboutImageCard[] = [
 
 export const AboutUsSection: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start end', 'end start'],
   });
 
-  // Dynamic Scroll Parallax, Rotation & Scale Animations
-  const y1 = useTransform(scrollYProgress, [0, 1], [60, -40]);
+  // Dynamic Scroll Parallax, Rotation & Scale Animations (gentler on mobile)
+  const y1 = useTransform(scrollYProgress, [0, 1], isMobile ? [15, -15] : [60, -40]);
   const rotate1 = useTransform(scrollYProgress, [0, 1], [-5, 5]);
 
-  const y2 = useTransform(scrollYProgress, [0, 1], [80, -60]);
+  const y2 = useTransform(scrollYProgress, [0, 1], isMobile ? [20, -20] : [80, -60]);
   const rotate2 = useTransform(scrollYProgress, [0, 1], [5, -5]);
 
-  const y3 = useTransform(scrollYProgress, [0, 1], [40, -30]);
+  const y3 = useTransform(scrollYProgress, [0, 1], isMobile ? [12, -12] : [40, -30]);
   const rotate3 = useTransform(scrollYProgress, [0, 1], [3, -3]);
 
-  const y4 = useTransform(scrollYProgress, [0, 1], [90, -70]);
+  const y4 = useTransform(scrollYProgress, [0, 1], isMobile ? [22, -22] : [90, -70]);
   const rotate4 = useTransform(scrollYProgress, [0, 1], [-4, 4]);
 
   return (

@@ -76,19 +76,25 @@ export const WhatWeBuildSection: React.FC<WhatWeBuildSectionProps> = ({
   onOpenConsultation,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [activeCardIndex, setActiveCardIndex] = useState<number>(-1); // -1 = Initial state (No Card)
+  const [activeCardIndex, setActiveCardIndex] = useState<number>(-1);
+  const [isMobile, setIsMobile] = useState(false);
+
+  React.useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start start', 'end end'],
   });
 
-  // Track scroll progress to trigger card entrance step-by-step
   useMotionValueEvent(scrollYProgress, 'change', (latest) => {
     if (latest < 0.15) {
-      setActiveCardIndex(-1); // Initial state: Background only, unblurred, no cards
+      setActiveCardIndex(-1);
     } else {
-      // Step-based reveal mapping scroll progress (0.15 to 0.9) across 5 cards
       const progress = Math.min(1, Math.max(0, (latest - 0.15) / 0.75));
       const cardIdx = Math.min(
         buildCardsData.length - 1,
@@ -99,20 +105,20 @@ export const WhatWeBuildSection: React.FC<WhatWeBuildSectionProps> = ({
   });
 
   return (
-    <section id="what-we-build" ref={containerRef} className="relative w-full h-[500vh] bg-[#efefeb]">
+    <section id="what-we-build" ref={containerRef} className="relative w-full h-[420vh] md:h-[500vh] bg-[#efefeb]">
       
       {/* INNER STICKY CONTAINER (100VH) - PINNED IN VIEWPORT */}
-      <div className="sticky top-0 left-0 w-full h-screen flex flex-col justify-between py-6 px-6 md:px-12 border-b border-[#111111]/[0.08] overflow-hidden bg-[#efefeb] z-20">
+      <div className="sticky top-0 left-0 w-full h-screen flex flex-col justify-between py-4 sm:py-6 px-4 sm:px-6 md:px-12 border-b border-[#111111]/[0.08] overflow-hidden bg-[#efefeb] z-20">
         
         <div className="max-w-7xl mx-auto w-full h-full flex flex-col justify-between relative">
           
           {/* BANNER HEADER ALIGNED TO THE RIGHT SIDE (SECTION 04) */}
           <div className="flex justify-end relative z-20 flex-shrink-0">
-            <div className="bg-[#8C21EF] text-[#F7F3EC] rounded-xl px-5 py-2.5 sm:px-6 sm:py-3 flex items-center gap-4 sm:gap-6 shadow-md">
-              <span className="text-xs sm:text-sm font-extrabold uppercase tracking-wider font-display">
+            <div className="bg-[#8C21EF] text-[#F7F3EC] rounded-xl px-4 py-2 sm:px-6 sm:py-3 flex items-center gap-3 sm:gap-6 shadow-md">
+              <span className="text-[10px] sm:text-sm font-extrabold uppercase tracking-wider font-display">
                 THE FOURTH THING YOU SHOULD KNOW WHAT WE BUILD
               </span>
-              <span className="text-xl sm:text-3xl font-black font-display opacity-90 border-l border-white/20 pl-3">
+              <span className="text-lg sm:text-3xl font-black font-display opacity-90 border-l border-white/20 pl-2 sm:pl-3">
                 04
               </span>
             </div>
@@ -123,39 +129,38 @@ export const WhatWeBuildSection: React.FC<WhatWeBuildSectionProps> = ({
             
             <motion.div
               animate={{
-                filter: activeCardIndex >= 0 ? 'blur(6px)' : 'blur(0px)',
                 opacity: activeCardIndex >= 0 ? 0.55 : 1,
               }}
-              transition={{ duration: 0.65, ease: 'linear' }}
+              transition={{ duration: 0.35, ease: 'linear' }}
               className="space-y-1 tracking-tighter"
             >
               {/* WHAT (Top Left) */}
-              <h2 className="text-7xl sm:text-9xl md:text-[13rem] lg:text-[16rem] font-black text-[#111111] uppercase font-display leading-[0.82]">
+              <h2 className="text-5xl sm:text-8xl md:text-[13rem] lg:text-[16rem] font-black text-[#111111] uppercase font-display leading-[0.82]">
                 WHAT
               </h2>
 
               {/* CENTERED EDITORIAL TEXT BLOCK + WE (RIGHT) */}
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center py-2">
-                <div className="lg:col-span-6 space-y-4 max-w-lg">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center py-2">
+                <div className="lg:col-span-6 space-y-3 max-w-lg">
                   <TextScrollReveal
                     as="p"
-                    className="text-base sm:text-xl font-bold text-[#111111] leading-relaxed tracking-tight"
+                    className="text-sm sm:text-xl font-bold text-[#111111] leading-relaxed tracking-tight"
                     text="We create digital products, campaigns, and growth systems that help brands scale online."
                   />
 
                   <div>
                     <a
                       href="#web-development"
-                      className="group inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#111111] text-[#F7F3EC] text-xs font-black uppercase tracking-widest hover:bg-[#8C21EF] transition-all duration-300 shadow-md"
+                      className="group inline-flex items-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 rounded-xl bg-[#111111] text-[#F7F3EC] text-[11px] sm:text-xs font-black uppercase tracking-widest hover:bg-[#8C21EF] transition-all duration-300 shadow-md"
                     >
                       <span>OUR SERVICES</span>
-                      <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                      <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                     </a>
                   </div>
                 </div>
 
                 <div className="lg:col-span-6 flex lg:justify-end">
-                  <span className="text-7xl sm:text-9xl md:text-[13rem] lg:text-[16rem] font-black text-[#111111] uppercase font-display leading-[0.82]">
+                  <span className="text-5xl sm:text-8xl md:text-[13rem] lg:text-[16rem] font-black text-[#111111] uppercase font-display leading-[0.82]">
                     WE
                   </span>
                 </div>
@@ -163,15 +168,15 @@ export const WhatWeBuildSection: React.FC<WhatWeBuildSectionProps> = ({
 
               {/* BUILD (Bottom Center) */}
               <div className="flex justify-center">
-                <h2 className="text-7xl sm:text-9xl md:text-[13rem] lg:text-[16rem] font-black text-[#111111] uppercase font-display leading-[0.82]">
+                <h2 className="text-5xl sm:text-8xl md:text-[13rem] lg:text-[16rem] font-black text-[#111111] uppercase font-display leading-[0.82]">
                   BUILD
                 </h2>
               </div>
             </motion.div>
 
-            {/* ANIMATED PROJECT CARD STACK LAYER (ASHLEY BROOKE CS WORK-PAGE EFFECT) */}
-            <div className="absolute inset-0 flex items-center justify-center z-30 px-4 pointer-events-none">
-              <div className="relative w-[340px] sm:w-[420px] h-[460px] sm:h-[540px] pointer-events-auto">
+            {/* ANIMATED PROJECT CARD STACK LAYER */}
+            <div className="absolute inset-0 flex items-center justify-center z-30 px-3 sm:px-4 pointer-events-none">
+              <div className="relative w-[300px] sm:w-[420px] h-[400px] sm:h-[540px] pointer-events-auto">
                 {buildCardsData.map((item, index) => {
                   const isCurrent = activeCardIndex === index;
                   const isVisible = activeCardIndex >= index;
@@ -179,24 +184,25 @@ export const WhatWeBuildSection: React.FC<WhatWeBuildSectionProps> = ({
                   return (
                     <motion.div
                       key={item.id}
-                      initial={{ y: 140, opacity: 0, rotate: 8 }}
+                      initial={{ y: isMobile ? 50 : 140, opacity: 0, rotate: isMobile ? 2 : 8 }}
                       animate={
                         isVisible
                           ? {
-                              y: isCurrent ? 0 : -25 * (activeCardIndex - index),
+                              y: isCurrent ? 0 : -18 * (activeCardIndex - index),
                               opacity: 1,
-                              rotate: item.rotation,
+                              rotate: isMobile ? (index % 2 === 0 ? -1 : 1) : item.rotation,
                             }
-                          : { y: 140, opacity: 0, rotate: 8 }
+                          : { y: isMobile ? 50 : 140, opacity: 0, rotate: isMobile ? 2 : 8 }
                       }
                       transition={{
-                        duration: 0.65,
-                        ease: 'linear',
+                        duration: 0.35,
+                        ease: 'easeOut',
                       }}
                       style={{
                         zIndex: 10 + index,
+                        willChange: 'transform, opacity',
                       }}
-                      className="absolute inset-0 bg-[#dfe5e8] border border-white/80 p-8 sm:p-10 rounded-[28px] shadow-[0_30px_80px_rgba(0,0,0,0.18)] hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between select-none overflow-hidden"
+                      className="absolute inset-0 bg-[#dfe5e8] border border-white/80 p-5 sm:p-10 rounded-2xl sm:rounded-[28px] shadow-lg md:shadow-[0_30px_80px_rgba(0,0,0,0.18)] hover:shadow-2xl transition-all duration-300 flex flex-col justify-between select-none overflow-hidden"
                     >
                       {/* TOP AREA: Heading + Supporting Description */}
                       <div className="space-y-4">

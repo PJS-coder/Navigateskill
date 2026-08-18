@@ -25,9 +25,9 @@ export const LineScrollReveal: React.FC<LineScrollRevealProps> = ({
         const start = index / lines.length;
         const end = Math.min(1, start + 0.6 / lines.length);
 
-        // Slide upward from below overflow mask (100% -> 0%) + opacity fade
-        const y = useTransform(scrollYProgress, [start, end], ['100%', '0%']);
-        const opacity = useTransform(scrollYProgress, [start, end], [0.2, 1]);
+        // Clamped motion values: slide smoothly into place (24px -> 0px) and stay at 0px without floating up out of bounds
+        const y = useTransform(scrollYProgress, [0, start, end, 1], [24, 24, 0, 0]);
+        const opacity = useTransform(scrollYProgress, [0, start, end, 1], [0.15, 0.15, 1, 1]);
 
         return (
           <div key={index} className="overflow-hidden py-1">

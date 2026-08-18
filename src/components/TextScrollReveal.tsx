@@ -29,19 +29,20 @@ export const TextScrollReveal: React.FC<TextScrollRevealProps> = ({
           const start = i / words.length;
           const end = start + 1 / words.length;
           
-          // Ashley Brooke CS style: Faded opacity (0.1) -> Solid Black (1.0), with fine upward slide (y: 10 -> 0)
-          const opacity = useTransform(scrollYProgress, [start, end], [0.1, 1]);
+          // Clamped 4-point transform array [0, start, end, 1]:
+          // Faded opacity -> Solid 1.0, subtle slide (8px -> 0px), locks at final position
+          const opacity = useTransform(scrollYProgress, [0, start, end, 1], [0.2, 0.2, 1, 1]);
           const color = useTransform(
             scrollYProgress,
-            [start, end],
-            ['#D1D5DB', '#111111']
+            [0, start, end, 1],
+            ['#888888', '#888888', '#111111', '#111111']
           );
-          const y = useTransform(scrollYProgress, [start, end], [8, 0]);
+          const y = useTransform(scrollYProgress, [0, start, end, 1], [8, 8, 0, 0]);
 
           return (
             <motion.span
               key={i}
-              style={{ opacity, color, y }}
+              style={{ opacity, color, y, willChange: 'opacity, transform' }}
               className="inline-block mr-[0.25em] transition-colors duration-150"
             >
               {word}
