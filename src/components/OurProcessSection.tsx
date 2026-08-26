@@ -103,76 +103,61 @@ export const OurProcessSection: React.FC<OurProcessSectionProps> = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const [activeStep, setActiveStep] = useState<number>(0);
-  const [isMobile, setIsMobile] = useState<boolean>(false);
 
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  useEffect(() => {
-    if (isMobile) return;
-
     const section = sectionRef.current;
     const track = trackRef.current;
     if (!section || !track) return;
 
-    const getScrollDistance = () => {
-      const viewportWidth = window.innerWidth;
-      const cardsWidth = track.scrollWidth;
-      const startOffset = viewportWidth * 0.35;
-      return startOffset + cardsWidth - viewportWidth + 80;
-    };
+    const mm = gsap.matchMedia();
 
-    let ctx: gsap.Context;
+    mm.add('(min-width: 768px)', () => {
+      const getScrollDistance = () => {
+        const viewportWidth = window.innerWidth;
+        const cardsWidth = track.scrollWidth;
+        const startOffset = viewportWidth * 0.35;
+        return startOffset + cardsWidth - viewportWidth + 80;
+      };
 
-    const initScroll = () => {
       const distance = getScrollDistance();
 
-      ctx = gsap.context(() => {
-        gsap.to(track, {
-          x: -distance,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: section,
-            pin: true,
-            scrub: 0.3,
-            anticipatePin: 1,
-            start: 'top top',
-            end: () => `+=${distance + 150}`,
-            invalidateOnRefresh: true,
-            onUpdate: (self) => {
-              const step = Math.min(
-                processSteps.length - 1,
-                Math.floor(self.progress * processSteps.length)
-              );
-              setActiveStep(step);
-            },
+      gsap.to(track, {
+        x: -distance,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: section,
+          pin: true,
+          scrub: 0.3,
+          anticipatePin: 1,
+          start: 'top top',
+          end: () => `+=${distance + 150}`,
+          invalidateOnRefresh: true,
+          onUpdate: (self) => {
+            const step = Math.min(
+              processSteps.length - 1,
+              Math.floor(self.progress * processSteps.length)
+            );
+            setActiveStep(step);
           },
-        });
-      }, sectionRef);
-    };
+        },
+      });
+    });
 
     const timer = setTimeout(() => {
-      initScroll();
       ScrollTrigger.refresh();
     }, 100);
 
     return () => {
       clearTimeout(timer);
-      if (ctx) ctx.revert();
+      mm.revert();
     };
-  }, [isMobile]);
+  }, []);
 
   return (
     <section
       id="our-process"
       ref={sectionRef}
-      className="relative bg-[#F7F3EC] text-[#111111] pt-8 pb-12 md:pt-14 md:pb-16 lg:pt-16 lg:pb-20 xl:pt-20 xl:pb-24 overflow-hidden border-b border-[#111111]/[0.08]"
+      className="hidden md:block relative bg-[#F7F3EC] text-[#111111] pt-8 pb-12 md:pt-14 md:pb-16 lg:pt-16 lg:pb-20 xl:pt-20 xl:pb-24 overflow-hidden border-b border-[#111111]/[0.08]"
     >
       {/* LIGHT MODE BACKGROUND PATTERN & AMBIENT GLOWS */}
       <div className="absolute inset-0 bg-[radial-gradient(#111111_0.8px,transparent_0.8px)] [background-size:24px_24px] opacity-10 pointer-events-none" />
@@ -207,11 +192,7 @@ export const OurProcessSection: React.FC<OurProcessSectionProps> = () => {
       <div className="relative z-10 pt-4 md:pt-6 lg:pt-8 pb-6 md:pb-8 lg:pb-12">
         <div
           ref={trackRef}
-          className={`${
-            isMobile
-              ? 'flex overflow-x-auto snap-x snap-mandatory px-4 sm:px-6 gap-4 pt-1 pb-6 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden'
-              : 'flex items-stretch gap-5 md:gap-6 lg:gap-8 xl:gap-10 min-w-max pl-5 md:pl-[35vw] pr-5 md:pr-12 transform-gpu will-change-transform'
-          }`}
+          className="flex items-stretch gap-5 md:gap-6 lg:gap-8 xl:gap-10 min-w-max pl-5 md:pl-[35vw] pr-5 md:pr-12 transform-gpu will-change-transform"
         >
           {processSteps.map((step, idx) => {
             const IconComponent = step.icon;

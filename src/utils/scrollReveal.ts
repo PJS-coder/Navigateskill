@@ -4,24 +4,26 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 export function initScrollReveal(): () => void {
-  // Respect prefers-reduced-motion
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  const prefersReducedMotion =
+    typeof window !== 'undefined' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  if (prefersReducedMotion) {
-    // If reduced motion enabled, immediately set all elements to final state
-    const elements = document.querySelectorAll('[data-reveal]');
+  // On mobile view or reduced motion: IMMEDIATELY reveal all target elements without fade/slide animations
+  if (isMobile || prefersReducedMotion) {
+    const elements = document.querySelectorAll('[data-reveal], [data-reveal-child]');
     elements.forEach((el) => {
       gsap.set(el, {
         opacity: 1,
         y: 0,
-        clipPath: 'inset(0% 0% 0% 0%)',
-        clearProps: 'transform',
+        clipPath: 'none',
+        clearProps: 'all',
       });
     });
     return () => {};
   }
 
-  // 1. Initial State Setup: Every target element starts hidden
+  // 1. Initial State Setup: Every target element starts hidden (Desktop only)
   const fadeElements = document.querySelectorAll<HTMLElement>('[data-reveal="fade"]');
   const imageElements = document.querySelectorAll<HTMLElement>('[data-reveal="image"]');
   const staggerContainers = document.querySelectorAll<HTMLElement>('[data-reveal="stagger"]');
@@ -101,3 +103,4 @@ export function initScrollReveal(): () => void {
     staggerBatch.forEach((st) => st.kill());
   };
 }
+
