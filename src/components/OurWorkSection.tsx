@@ -1,66 +1,161 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { ArrowUpRight, Sparkles } from 'lucide-react';
+import { ArrowUpRight, Sparkles, ExternalLink, Lock, Globe } from 'lucide-react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 // Register GSAP ScrollTrigger Plugin explicitly at module top level
 gsap.registerPlugin(ScrollTrigger);
 
-interface Project {
+export interface RealProject {
   id: string;
   num: string;
   title: string;
-  category: 'Brand' | 'Campaign' | 'Experiential' | 'Film' | 'Digital';
-  tags: string[];
+  domain: string;
+  url: string;
   image: string;
+  category: 'Wellness' | 'Healthcare' | 'E-Commerce' | 'Education';
+  categoryBadge: string;
+  badgeBg: string;
+  description: string;
+  tags: string[];
 }
 
-const allProjects: Project[] = [
+const allProjects: RealProject[] = [
   {
-    id: 'magic-city',
+    id: 'ebadat',
     num: '01',
-    title: 'Magic City: An American Fantasy',
-    category: 'Film',
-    tags: ['CAMPAIGN', 'FILM'],
-    image: 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=1200&q=80',
+    title: 'Ebadat',
+    domain: 'ebadat.in',
+    url: 'https://ebadat.in/',
+    image: '/projects/ebadat.png',
+    category: 'Wellness',
+    categoryBadge: 'WELLNESS',
+    badgeBg: 'bg-[#00A389]',
+    description: 'Islamic lifestyle and spiritual wellness platform with curated content and spiritual resources.',
+    tags: ['WordPress', 'Lifestyle', 'Community'],
   },
   {
-    id: 'warner-bros',
+    id: 'dentalverse',
     num: '02',
-    title: 'Warner Bros. World Campaign',
-    category: 'Campaign',
-    tags: ['CAMPAIGN', 'EXPERIENTIAL'],
-    image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80',
+    title: 'DentalVerse',
+    domain: 'dentalverse.in',
+    url: 'https://dentalverse.in/',
+    image: '/projects/dentalverse.png',
+    category: 'Healthcare',
+    categoryBadge: 'HEALTHCARE',
+    badgeBg: 'bg-[#2563EB]',
+    description: 'Modern dental care platform showcasing dental services and patient resources.',
+    tags: ['WordPress', 'Healthcare', 'Clinic'],
   },
   {
-    id: 'hyperscale-web',
+    id: 'tulsiveda',
     num: '03',
-    title: 'HyperScale Web Engine',
-    category: 'Digital',
-    tags: ['DIGITAL', 'WEB ARCHITECTURE'],
-    image: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1200&q=80',
+    title: 'TulsiVeda',
+    domain: 'tulsiveda.in',
+    url: 'https://www.tulsiveda.in/',
+    image: '/projects/tulsiveda.png',
+    category: 'Wellness',
+    categoryBadge: 'WELLNESS',
+    badgeBg: 'bg-[#10B981]',
+    description: 'Ayurvedic wellness brand with traditional remedies and modern health solutions.',
+    tags: ['E-Commerce', 'Health', 'Ayurveda'],
   },
   {
-    id: 'pulse-mobile',
+    id: 'krishvanta',
     num: '04',
-    title: 'Pulse Mobile Experience',
-    category: 'Brand',
-    tags: ['BRAND', 'MOBILE PLATFORM'],
-    image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=1200&q=80',
+    title: 'KrishVanta',
+    domain: 'krishvanta.in',
+    url: 'https://www.krishvanta.in/',
+    image: '/projects/krishvanta.png',
+    category: 'Wellness',
+    categoryBadge: 'WELLNESS',
+    badgeBg: 'bg-[#F59E0B]',
+    description: 'Premium organic and Ayurvedic health & wellness brand delivering natural products nationwide.',
+    tags: ['Ayurveda', 'Organic', 'E-Commerce'],
   },
   {
-    id: 'aether-activation',
+    id: 'drmen',
     num: '05',
-    title: 'Aether Immersive Activation',
-    category: 'Experiential',
-    tags: ['EXPERIENTIAL', '3D MOTION'],
-    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80',
+    title: 'DrMen',
+    domain: 'drmen.in',
+    url: 'https://drmen.in/',
+    image: '/projects/drmen.png',
+    category: 'Healthcare',
+    categoryBadge: 'HEALTHCARE',
+    badgeBg: 'bg-[#EF4444]',
+    description: "Men's health and wellness platform offering consultations and health resources.",
+    tags: ['Health', 'Consultation', 'Wellness'],
+  },
+  {
+    id: 'eximluxe',
+    num: '06',
+    title: 'Exim Luxe',
+    domain: 'eximluxe.com',
+    url: 'https://eximluxe.com/',
+    image: '/projects/eximluxe.png',
+    category: 'E-Commerce',
+    categoryBadge: 'E-COMMERCE',
+    badgeBg: 'bg-[#A855F7]',
+    description: 'Premium digital storefront for luxury import/export goods with global reach.',
+    tags: ['Shopify', 'Luxury', 'Trade'],
+  },
+  {
+    id: 'avmgannitgyanacademy',
+    num: '07',
+    title: 'AVM Gannit Gyan Academy',
+    domain: 'avmgannitgyanacademy.in',
+    url: 'https://avmgannitgyanacademy.in/',
+    image: '/projects/avmgannitgyanacademy.png',
+    category: 'Education',
+    categoryBadge: 'EDUCATION',
+    badgeBg: 'bg-[#6366F1]',
+    description: 'Interactive mathematics learning platform with courses & student tools.',
+    tags: ['E-Learning', 'LMS', 'Math'],
+  },
+  {
+    id: 'sensationz',
+    num: '08',
+    title: 'Sensationz Shop',
+    domain: 'shop.sensationzperformingarts.com',
+    url: 'https://shop.sensationzperformingarts.com/',
+    image: '/projects/sensationz.png',
+    category: 'E-Commerce',
+    categoryBadge: 'E-COMMERCE',
+    badgeBg: 'bg-[#EC4899]',
+    description: 'Online merchandise store for performing arts studio with dance apparel and gear.',
+    tags: ['Shopify', 'Merchandise', 'Arts'],
+  },
+  {
+    id: 'dental-two-sepia',
+    num: '09',
+    title: 'Dental Two Sepia',
+    domain: 'dental-two-sepia.vercel.app',
+    url: 'https://dental-two-sepia.vercel.app/',
+    image: '/projects/dental-two-sepia.png',
+    category: 'Healthcare',
+    categoryBadge: 'HEALTHCARE',
+    badgeBg: 'bg-[#0EA5E9]',
+    description: 'Modern dental clinic platform with online appointment booking & patient management.',
+    tags: ['React', 'Next.js', 'Booking'],
+  },
+  {
+    id: 'pepperdent',
+    num: '10',
+    title: 'PepperDent',
+    domain: 'pepperdent.in',
+    url: 'https://pepperdent.in/',
+    image: '/projects/pepperdent.png',
+    category: 'Healthcare',
+    categoryBadge: 'HEALTHCARE',
+    badgeBg: 'bg-[#1D4ED8]',
+    description: 'Comprehensive healthcare platform for modern dental clinic management & patient care.',
+    tags: ['Healthcare', 'Dental', 'Clinic'],
   },
 ];
 
-const categories = ['All Work', 'Brand', 'Campaign', 'Experiential', 'Film', 'Digital'] as const;
+const categories = ['All Work', 'Wellness', 'Healthcare', 'E-Commerce', 'Education'] as const;
 
 interface OurWorkSectionProps {
   onOpenConsultation: () => void;
@@ -77,83 +172,16 @@ export const OurWorkSection: React.FC<OurWorkSectionProps> = ({
       ? allProjects
       : allProjects.filter((p) => p.category === activeCategory);
 
+  // Ensure all project cards are instantly 100% visible without laggy fade effects
   useEffect(() => {
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const isMobile = window.innerWidth < 768;
-
-    if (isMobile) {
-      gsap.set('.project-card', { opacity: 1, y: 0, scale: 1 });
-      gsap.set('.project-card-image', { clipPath: 'inset(0% 0% 0% 0%)' });
-      gsap.set('.project-card-badge', { opacity: 1, y: 0 });
-      return;
-    }
-
-    let batchTriggers: ScrollTrigger[] = [];
-
-    const timer = setTimeout(() => {
-      const cards = gsap.utils.toArray<HTMLElement>('.project-card');
-
-      cards.forEach((card) => {
-        const img = card.querySelector('.project-card-image');
-        const badge = card.querySelector('.project-card-badge');
-
-        gsap.set(card, { opacity: 0, y: 60, scale: 0.98 });
-        if (img) gsap.set(img, { clipPath: 'inset(100% 0% 0% 0%)' });
-        if (badge) gsap.set(badge, { opacity: 0, y: 20 });
-      });
-
-      batchTriggers = ScrollTrigger.batch('.project-card', {
-        start: 'top 85%',
-        once: true,
-        onEnter: (batch) => {
-          batch.forEach((card, idx) => {
-            const img = card.querySelector('.project-card-image');
-            const badge = card.querySelector('.project-card-badge');
-
-            const tl = gsap.timeline({ delay: idx * 0.08 });
-
-            tl.to(card, {
-              opacity: 1,
-              y: 0,
-              scale: 1,
-              duration: 0.75,
-              ease: 'power3.out',
-            }, 0);
-
-            if (img) {
-              tl.to(img, {
-                clipPath: 'inset(0% 0% 0% 0%)',
-                duration: 0.85,
-                ease: 'power3.out',
-              }, 0);
-            }
-
-            if (badge) {
-              tl.to(badge, {
-                opacity: 1,
-                y: 0,
-                duration: 0.6,
-                ease: 'power3.out',
-              }, 0.1);
-            }
-          });
-        },
-      });
-
-      ScrollTrigger.refresh();
-    }, 80);
-
-    return () => {
-      clearTimeout(timer);
-      batchTriggers.forEach((st) => st.kill());
-    };
+    gsap.set('.project-card', { opacity: 1, y: 0, scale: 1 });
   }, [activeCategory]);
 
   return (
     <section id="our-work" ref={sectionRef} className="py-24 md:py-36 px-6 md:px-12 bg-[#F7F3EC] border-b border-[#111111]/[0.08] relative overflow-hidden">
       <div className="max-w-7xl mx-auto space-y-16">
 
-        {/* BANNER HEADER (SECTION 04) */}
+        {/* BANNER HEADER */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 border-b border-[#111111]/10 pb-8">
           <div>
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#8C21EF]/10 text-[#8C21EF] text-xs font-black uppercase tracking-wider mb-3">
@@ -167,96 +195,133 @@ export const OurWorkSection: React.FC<OurWorkSectionProps> = ({
 
           <div className="bg-[#8C21EF] text-[#F7F3EC] rounded-xl px-5 py-2.5 sm:px-6 sm:py-3 flex items-center gap-4 sm:gap-6 shadow-md">
             <span className="text-xs sm:text-sm font-extrabold uppercase tracking-wider font-display">
-              FEATURED CASES
+              LIVE WEBSITES
             </span>
             <span className="text-xl sm:text-3xl font-black font-display opacity-90 border-l border-white/20 pl-3">
-              04
+              10
             </span>
           </div>
         </div>
 
-        {/* HERO HEADLINE SPLIT REVEAL */}
+        {/* HERO HEADLINE */}
         <div className="max-w-4xl space-y-4 pt-4">
-          <h3 className="text-3xl sm:text-5xl md:text-7xl font-black font-display text-[#111111] uppercase tracking-tight leading-[1.05]">
+          <h3 className="text-3xl sm:text-5xl md:text-6xl font-black font-display text-[#111111] uppercase tracking-tight leading-[1.05]">
             We let the Work speak, <span className="text-[#8C21EF]">loudly</span>
           </h3>
 
-          <p className="text-base sm:text-xl text-[#111111]/80 font-medium leading-relaxed max-w-2xl">
-            Explore our curated collection of high-impact web architectures, mobile experiences, visual campaigns, and performance marketing engines.
+          <p className="text-base sm:text-xl text-[#111111]/80 font-medium leading-relaxed max-w-3xl">
+            Explore our showcase of real client web applications built for high performance, intuitive UX, and seamless design. Click any project box to visit the live site.
           </p>
         </div>
 
         {/* INTERACTIVE FILTER PILLS */}
         <div className="flex flex-wrap items-center gap-2 sm:gap-3 py-2 border-b border-[#111111]/10 pb-6">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setActiveCategory(cat)}
-              className={`px-5 py-2.5 rounded-full text-xs font-black uppercase tracking-wider transition-all duration-300 ${activeCategory === cat
-                ? 'bg-[#111111] text-[#F7F3EC] shadow-md scale-105'
-                : 'bg-[#EFE8DE] text-[#111111]/70 hover:bg-[#111111]/10 hover:text-[#111111]'
+          {categories.map((cat) => {
+            const count = cat === 'All Work' ? allProjects.length : allProjects.filter(p => p.category === cat).length;
+            return (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className={`px-5 py-2.5 rounded-full text-xs font-black uppercase tracking-wider transition-all duration-300 flex items-center gap-2 ${
+                  activeCategory === cat
+                    ? 'bg-[#111111] text-[#F7F3EC] shadow-md scale-105'
+                    : 'bg-[#EFE8DE] text-[#111111]/70 hover:bg-[#111111]/10 hover:text-[#111111]'
                 }`}
-            >
-              {cat}
-            </button>
-          ))}
+              >
+                <span>{cat}</span>
+                <span className={`px-2 py-0.5 rounded-full text-[10px] ${
+                  activeCategory === cat ? 'bg-[#8C21EF] text-white' : 'bg-[#111111]/10 text-[#111111]/60'
+                }`}>
+                  {count}
+                </span>
+              </button>
+            );
+          })}
         </div>
 
-        {/* 2-COLUMN GRID OF PROJECT CARDS (2 BOXES PER LINE ON DESKTOP/TABLET) */}
-        <div className="py-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12">
-            {filteredProjects.map((project) => (
-              <div
-                key={project.id}
-                onClick={onOpenConsultation}
-                className="project-card group relative rounded-3xl overflow-hidden shadow-2xl border border-[#111111]/10 bg-[#111111] cursor-pointer h-[360px] sm:h-[480px] md:h-[540px] flex items-end"
-              >
-                {/* FULL-BLEED IMAGE BLOCK WITH CLIP-PATH REVEAL */}
-                <div className="project-card-image absolute inset-0 overflow-hidden">
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-full object-cover filter brightness-[0.88] group-hover:brightness-[0.95] group-hover:scale-105 transition-all duration-700 ease-out"
-                  />
-                  <div className="absolute inset-0 bg-[#111111]/40 group-hover:bg-transparent transition-colors" />
-                </div>
+        {/* 2-COLUMN GRID OF LARGE 16:9 PC DESKTOP BROWSER MOCKUP CARDS */}
+        <div className="py-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-14">
+            {filteredProjects.map((project) => {
+              return (
+                <div
+                  key={project.id}
+                  className="project-card group flex flex-col justify-between transition-all duration-300"
+                >
+                  {/* LARGE MINIMAL & SWEET BROWSER WINDOW CONTAINER */}
+                  <a
+                    href={project.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="rounded-2xl overflow-hidden shadow-md border border-gray-200/90 bg-white hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col block"
+                  >
+                    {/* MACOS BROWSER HEADER BAR */}
+                    <div className="px-4 py-2.5 bg-[#F2F2F2] border-b border-gray-200/80 flex items-center justify-between gap-3 select-none">
+                      {/* WINDOW CONTROLS */}
+                      <div className="flex items-center gap-1.5 flex-shrink-0">
+                        <span className="w-3 h-3 rounded-full bg-[#FF5F56] inline-block"></span>
+                        <span className="w-3 h-3 rounded-full bg-[#FFBD2E] inline-block"></span>
+                        <span className="w-3 h-3 rounded-full bg-[#27C93F] inline-block"></span>
+                      </div>
 
-                {/* TITLE & TAG OVERLAY BADGE WITH STAGGERED REVEAL */}
-                <div className="project-card-badge relative z-20 p-5 sm:p-7 w-full">
-                  <div className="bg-white/95 backdrop-blur-md p-5 sm:p-6 rounded-2xl border border-white/40 shadow-2xl flex flex-col justify-between gap-3 group-hover:bg-white transition-colors duration-300">
-                    <div className="space-y-2">
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs font-black text-[#8C21EF] tracking-wider uppercase font-display bg-[#8C21EF]/10 px-2.5 py-1 rounded-md">
-                          {project.category}
-                        </span>
-                        <span className="text-xl font-black font-display text-[#111111]/30">
-                          {project.num}
+                      {/* URL ADDRESS BAR */}
+                      <div className="flex-1 max-w-[240px] bg-white rounded-full px-3 py-1 border border-gray-300/60 shadow-inner flex items-center justify-center gap-1.5 overflow-hidden">
+                        <Lock className="w-3 h-3 text-emerald-600 flex-shrink-0" />
+                        <span className="text-[11px] font-mono font-semibold text-gray-700 truncate">
+                          {project.domain}
                         </span>
                       </div>
 
-                      <h4 className="text-xl sm:text-2xl font-black text-[#111111] font-display tracking-tight leading-tight uppercase">
+                      {/* ACTION BUTTON */}
+                      <div className="flex items-center gap-1 flex-shrink-0 text-gray-400 group-hover:text-[#8C21EF] transition-colors">
+                        <ExternalLink className="w-4 h-4" />
+                      </div>
+                    </div>
+
+                    {/* LIVE VIEWPORT FRAME (16:9 HD DESKTOP SCREENSHOT) */}
+                    <div className="relative w-full aspect-[16/9] bg-gray-100 overflow-hidden group/viewport">
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        className="w-full h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-500"
+                        loading="lazy"
+                      />
+
+                      {/* HOVER OVERLAY WITH DIRECT VISIT LINK */}
+                      <div className="absolute inset-0 bg-black/35 opacity-0 group-hover/viewport:opacity-100 transition-opacity duration-300 flex items-center justify-center p-4 z-10 backdrop-blur-[2px]">
+                        <div className="px-5 py-2.5 rounded-xl bg-[#111111] text-white text-xs font-black uppercase tracking-wider group-hover:bg-[#8C21EF] transition-all shadow-xl flex items-center gap-2">
+                          <Globe className="w-4 h-4" />
+                          <span>Visit Live Website</span>
+                          <ExternalLink className="w-3.5 h-3.5" />
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+
+                  {/* DETAILS BELOW THE BROWSER BOX */}
+                  <div className="pt-4 px-1 space-y-1.5">
+                    <div className="flex items-center justify-between">
+                      <a
+                        href={project.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xl sm:text-2xl font-black text-[#111111] font-display uppercase tracking-tight hover:text-[#8C21EF] transition-colors"
+                      >
                         {project.title}
-                      </h4>
+                      </a>
+                      <span className="text-xs font-bold font-mono text-[#111111]/30">
+                        {project.num}
+                      </span>
                     </div>
 
-                    <div className="pt-2 flex items-center justify-between border-t border-[#111111]/10 mt-1">
-                      <div className="flex items-center gap-1.5 flex-wrap">
-                        {project.tags.map((tag, idx) => (
-                          <span key={idx} className="text-[10px] font-bold text-[#111111]/70 uppercase">
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-
-                      <div className="w-10 h-10 rounded-xl bg-[#111111] text-[#F7F3EC] flex items-center justify-center group-hover:bg-[#8C21EF] transition-colors duration-300 shadow-md flex-shrink-0">
-                        <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                      </div>
-                    </div>
+                    <p className="text-xs sm:text-sm font-medium text-[#111111]/75 leading-relaxed line-clamp-2">
+                      {project.description}
+                    </p>
                   </div>
-                </div>
 
-              </div>
-            ))}
+                </div>
+              );
+            })}
           </div>
         </div>
 
@@ -266,7 +331,7 @@ export const OurWorkSection: React.FC<OurWorkSectionProps> = ({
             onClick={onOpenConsultation}
             className="group px-8 py-4 rounded-xl bg-[#111111] text-[#F7F3EC] text-xs font-black uppercase tracking-widest hover:bg-[#8C21EF] transition-all duration-300 shadow-xl flex items-center gap-2"
           >
-            <span>Launch Your Case Study</span>
+            <span>Launch Your Custom Website</span>
             <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
           </button>
         </div>
@@ -275,3 +340,4 @@ export const OurWorkSection: React.FC<OurWorkSectionProps> = ({
     </section>
   );
 };
+

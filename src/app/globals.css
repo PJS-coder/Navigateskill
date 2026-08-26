@@ -71,3 +71,49 @@
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
+
+/* Lenis Recommended Smooth Scroll CSS Extension */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* GPU Acceleration & Smooth Scrolling Optimization for Mobile & Low-End Devices */
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  overscroll-behavior-y: none;
+}
+
+.transform-gpu, [data-gsap-target] {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* Touch Momentum Scrolling for Mobile Containers */
+.scrollbar-none {
+  -webkit-overflow-scrolling: touch;
+}
+
+

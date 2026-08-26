@@ -8,6 +8,7 @@ import { AboutUsSection } from '@/components/AboutUsSection';
 import { WhatWeOfferSection } from '@/components/WhatWeOfferSection';
 import { WhatWeDoSection } from '@/components/WhatWeDoSection';
 import { OurWorkSection } from '@/components/OurWorkSection';
+import { OurProcessSection } from '@/components/OurProcessSection';
 import { WhoWeAreSection } from '@/components/WhoWeAreSection';
 import { CTASection } from '@/components/CTASection';
 import { ConsultationModal } from '@/components/ConsultationModal';
@@ -28,6 +29,7 @@ export default function Home() {
           <AboutUsSection />
           <WhatWeOfferSection />
           <WhatWeDoSection onOpenConsultation={() => setIsConsultationOpen(true)} />
+          <OurProcessSection onOpenConsultation={() => setIsConsultationOpen(true)} />
           <OurWorkSection onOpenConsultation={() => setIsConsultationOpen(true)} />
           <WhoWeAreSection onOpenConsultation={() => setIsConsultationOpen(true)} />
           <CTASection onOpenConsultation={() => setIsConsultationOpen(true)} />
