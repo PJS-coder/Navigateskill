@@ -109,56 +109,82 @@ export const OurProcessSection: React.FC<OurProcessSectionProps> = () => {
     const track = trackRef.current;
     if (!section || !track) return;
 
-    const isMobile = window.innerWidth < 768;
-    if (isMobile) return;
-
     const getScrollDistance = () => {
+      const isMobile = window.innerWidth < 768;
       const viewportWidth = window.innerWidth;
-      const startOffset = viewportWidth * (viewportWidth >= 1024 ? 0.45 : 0.25);
-      const endBuffer = viewportWidth * (viewportWidth >= 1024 ? 0.45 : 0.25);
       const cardsWidth = track.scrollWidth;
-      return startOffset + cardsWidth - viewportWidth + endBuffer;
+
+      if (isMobile) {
+        return cardsWidth - viewportWidth + 36;
+      } else {
+        const startOffset = viewportWidth * 0.35;
+        return startOffset + cardsWidth - viewportWidth + 80;
+      }
     };
 
-    const ctx = gsap.context(() => {
+    let ctx: gsap.Context;
+
+    const initScroll = () => {
       const distance = getScrollDistance();
 
-      gsap.to(track, {
-        x: -distance,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: section,
-          pin: true,
-          scrub: 0.2,
-          anticipatePin: 1,
-          start: 'top top',
-          end: () => `+=${distance + 400}`,
-          invalidateOnRefresh: true,
-          onUpdate: (self) => {
-            const step = Math.min(
-              processSteps.length - 1,
-              Math.floor(self.progress * processSteps.length)
-            );
-            setActiveStep(step);
+      ctx = gsap.context(() => {
+        gsap.to(track, {
+          x: -distance,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: section,
+            pin: true,
+            scrub: 0.3,
+            anticipatePin: 1,
+            start: 'top top',
+            end: () => `+=${distance + 150}`,
+            invalidateOnRefresh: true,
+            onUpdate: (self) => {
+              const step = Math.min(
+                processSteps.length - 1,
+                Math.floor(self.progress * processSteps.length)
+              );
+              setActiveStep(step);
+            },
           },
-        },
-      });
-    }, sectionRef);
+        });
+      }, sectionRef);
+    };
 
-    return () => ctx.revert();
+    const timer = setTimeout(() => {
+      initScroll();
+      ScrollTrigger.refresh();
+    }, 100);
+
+    return () => {
+      clearTimeout(timer);
+      if (ctx) ctx.revert();
+    };
   }, []);
 
   return (
     <section
       id="our-process"
       ref={sectionRef}
-      className="relative bg-[#F7F3EC] text-[#111111] py-20 md:py-28 overflow-hidden border-b border-[#111111]/[0.08]"
+      className="relative bg-[#F7F3EC] text-[#111111] py-16 md:py-28 overflow-hidden border-b border-[#111111]/[0.08]"
     >
       {/* LIGHT MODE BACKGROUND PATTERN & AMBIENT GLOWS */}
       <div className="absolute inset-0 bg-[radial-gradient(#111111_0.8px,transparent_0.8px)] [background-size:24px_24px] opacity-10 pointer-events-none" />
       <div className="absolute top-1/4 left-1/3 w-[500px] h-[500px] bg-[#8C21EF]/5 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12">
+        {/* BANNER HEADER ALIGNED TO THE RIGHT SIDE */}
+        <div className="flex justify-end relative z-20 mb-6 sm:mb-8">
+          <div className="bg-[#8C21EF] text-[#F7F3EC] rounded-xl px-4 py-2 sm:px-6 sm:py-3 flex items-center gap-3 sm:gap-6 shadow-md">
+            <span className="text-[10px] sm:text-sm font-extrabold uppercase tracking-wider font-display">
+              THE FOURTH THING YOU SHOULD KNOW OUR PROCESS
+            </span>
+            <span className="text-lg sm:text-3xl font-black font-display opacity-90 border-l border-white/20 pl-2 sm:pl-3">
+              04
+            </span>
+          </div>
+        </div>
+
         {/* HEADER BLOCK */}
         <div className="flex flex-col gap-4 pb-8 border-b border-[#111111]/10">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#8C21EF]/10 border border-[#8C21EF]/20 text-[#8C21EF] text-xs font-black uppercase tracking-wider w-fit">
@@ -171,18 +197,18 @@ export const OurProcessSection: React.FC<OurProcessSectionProps> = () => {
         </div>
       </div>
 
-      {/* HORIZONTAL CARDS TRACK CONTAINER - STARTS FROM RIGHT & SCROLLS PAST LAST BOX INTO TRAILING EMPTY SPACE */}
-      <div className="relative z-10 pt-12 pb-8 pl-8 sm:pl-32 md:pl-56 lg:pl-[45vw] pr-16 sm:pr-40 md:pr-64 lg:pr-[70vw] overflow-x-auto md:overflow-x-visible scrollbar-none snap-x snap-mandatory">
+      {/* HORIZONTAL CARDS TRACK CONTAINER - DRIVEN BY VERTICAL WEBSITE SCROLL */}
+      <div className="relative z-10 pt-8 pb-8 pl-5 md:pl-[35vw] pr-5 md:pr-12 overflow-hidden">
         <div
           ref={trackRef}
-          className="flex items-stretch gap-6 sm:gap-8 min-w-max transform-gpu will-change-transform"
+          className="flex items-stretch gap-5 sm:gap-8 min-w-max transform-gpu will-change-transform"
         >
           {processSteps.map((step, idx) => {
             const IconComponent = step.icon;
             return (
               <div
                 key={step.id}
-                className={`w-[310px] sm:w-[380px] md:w-[420px] min-h-[400px] flex-shrink-0 bg-white rounded-[28px] p-7 sm:p-9 border border-[#111111]/10 flex flex-col justify-between group hover:border-[#8C21EF]/50 hover:shadow-2xl transition-all duration-300 relative overflow-hidden snap-center ${
+                className={`w-[290px] sm:w-[380px] md:w-[420px] min-h-[380px] sm:min-h-[400px] flex-shrink-0 bg-white rounded-[28px] p-6 sm:p-9 border border-[#111111]/10 flex flex-col justify-between group hover:border-[#8C21EF]/50 hover:shadow-2xl transition-all duration-300 relative overflow-hidden ${
                   activeStep === idx ? 'border-[#8C21EF]/40 shadow-xl' : 'shadow-md'
                 }`}
               >
@@ -236,6 +262,7 @@ export const OurProcessSection: React.FC<OurProcessSectionProps> = () => {
     </section>
   );
 };
+
 
 
 

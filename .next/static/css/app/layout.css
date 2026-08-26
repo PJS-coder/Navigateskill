@@ -610,6 +610,9 @@
   .min-h-\[360px\] {
     min-height: 360px;
   }
+  .min-h-\[380px\] {
+    min-height: 380px;
+  }
   .min-h-\[400px\] {
     min-height: 400px;
   }
@@ -690,6 +693,9 @@
   }
   .w-\[85vw\] {
     width: 85vw;
+  }
+  .w-\[290px\] {
+    width: 290px;
   }
   .w-\[300px\] {
     width: 300px;
@@ -831,6 +837,10 @@
   .cursor-pointer {
     cursor: pointer;
   }
+  .touch-pan-x {
+    --tw-pan-x: pan-x;
+    touch-action: var(--tw-pan-x,) var(--tw-pan-y,) var(--tw-pinch-zoom,);
+  }
   .touch-none {
     touch-action: none;
   }
@@ -843,8 +853,8 @@
   .snap-mandatory {
     --tw-scroll-snap-strictness: mandatory;
   }
-  .snap-center {
-    scroll-snap-align: center;
+  .snap-start {
+    scroll-snap-align: start;
   }
   .scrollbar-none {
     scrollbar-width: none;
@@ -908,6 +918,9 @@
   }
   .gap-4 {
     gap: calc(var(--spacing) * 4);
+  }
+  .gap-5 {
+    gap: calc(var(--spacing) * 5);
   }
   .gap-6 {
     gap: calc(var(--spacing) * 6);
@@ -1640,11 +1653,11 @@
   .pr-4 {
     padding-right: calc(var(--spacing) * 4);
   }
+  .pr-5 {
+    padding-right: calc(var(--spacing) * 5);
+  }
   .pr-6 {
     padding-right: calc(var(--spacing) * 6);
-  }
-  .pr-16 {
-    padding-right: calc(var(--spacing) * 16);
   }
   .pb-0\.5 {
     padding-bottom: calc(var(--spacing) * 0.5);
@@ -1685,8 +1698,8 @@
   .pl-4 {
     padding-left: calc(var(--spacing) * 4);
   }
-  .pl-8 {
-    padding-left: calc(var(--spacing) * 8);
+  .pl-5 {
+    padding-left: calc(var(--spacing) * 5);
   }
   .text-center {
     text-align: center;
@@ -2475,6 +2488,9 @@
     .sm\:max-h-\[450px\] {
       max-height: 450px;
     }
+    .sm\:min-h-\[400px\] {
+      min-height: 400px;
+    }
     .sm\:min-h-\[480px\] {
       min-height: 480px;
     }
@@ -2659,9 +2675,6 @@
     .sm\:pt-20 {
       padding-top: calc(var(--spacing) * 20);
     }
-    .sm\:pr-40 {
-      padding-right: calc(var(--spacing) * 40);
-    }
     .sm\:pb-8 {
       padding-bottom: calc(var(--spacing) * 8);
     }
@@ -2673,9 +2686,6 @@
     }
     .sm\:pl-4 {
       padding-left: calc(var(--spacing) * 4);
-    }
-    .sm\:pl-32 {
-      padding-left: calc(var(--spacing) * 32);
     }
     .sm\:text-2xl {
       font-size: var(--text-2xl);
@@ -2789,6 +2799,9 @@
     .md\:min-w-\[340px\] {
       min-width: 340px;
     }
+    .md\:snap-center {
+      scroll-snap-align: center;
+    }
     .md\:grid-cols-2 {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
@@ -2819,11 +2832,17 @@
     .md\:py-36 {
       padding-block: calc(var(--spacing) * 36);
     }
+    .md\:pr-12 {
+      padding-right: calc(var(--spacing) * 12);
+    }
     .md\:pr-64 {
       padding-right: calc(var(--spacing) * 64);
     }
     .md\:pl-56 {
       padding-left: calc(var(--spacing) * 56);
+    }
+    .md\:pl-\[35vw\] {
+      padding-left: 35vw;
     }
     .md\:text-5xl {
       font-size: var(--text-5xl);
@@ -3157,6 +3176,18 @@ body {
   syntax: "*";
   inherits: false;
 }
+@property --tw-pan-x {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-pan-y {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-pinch-zoom {
+  syntax: "*";
+  inherits: false;
+}
 @property --tw-scroll-snap-strictness {
   syntax: "*";
   inherits: false;
@@ -3424,6 +3455,9 @@ body {
       --tw-rotate-z: initial;
       --tw-skew-x: initial;
       --tw-skew-y: initial;
+      --tw-pan-x: initial;
+      --tw-pan-y: initial;
+      --tw-pinch-zoom: initial;
       --tw-scroll-snap-strictness: proximity;
       --tw-space-y-reverse: 0;
       --tw-border-style: solid;
