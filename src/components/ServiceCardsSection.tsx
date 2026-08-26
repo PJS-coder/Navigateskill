@@ -143,25 +143,25 @@ export const ServiceCardsSection: React.FC<ServiceCardsSectionProps> = ({
 
   return (
     <section className="py-24 px-6 md:px-12 border-b border-[#111111]/[0.08] bg-[#EFE8DE]/60 relative overflow-hidden">
-      <div className="max-w-7xl mx-auto space-y-16">
+      <div className="max-w-7xl xl:max-w-[1400px] 2xl:max-w-[1600px] mx-auto space-y-16 lg:space-y-20">
         
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between border-b border-[#111111]/10 pb-6 gap-4">
           <div>
-            <div className="inline-block px-3 py-1 rounded-full bg-[#8C21EF]/10 text-[#8C21EF] text-xs font-black uppercase tracking-wider mb-2">
+            <div className="inline-block px-3.5 py-1.5 rounded-full bg-[#8C21EF]/10 text-[#8C21EF] text-xs lg:text-sm font-black uppercase tracking-wider mb-2">
               Capabilities Catalog
             </div>
-            <h2 className="text-3xl sm:text-5xl font-black text-[#111111] font-display uppercase tracking-tight">
+            <h2 className="text-3xl sm:text-5xl lg:text-6xl xl:text-7xl font-black text-[#111111] font-display uppercase tracking-tight">
               Our Core <span className="text-[#8C21EF]">Services</span>
             </h2>
           </div>
-          <span className="text-xs font-black uppercase tracking-widest text-[#111111]/40">
+          <span className="text-xs lg:text-sm font-black uppercase tracking-widest text-[#111111]/40">
             12 SPECIALIZED DISCIPLINES
           </span>
         </div>
 
         {/* 12 POP-UP CARDS GRID WITH STAGGERED SCROLL ANIMATION (ASHLEY BROOKE CS STYLE) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 xl:gap-10">
           {services.map((item, index) => {
             const Icon = item.icon;
             return (
@@ -171,7 +171,7 @@ export const ServiceCardsSection: React.FC<ServiceCardsSectionProps> = ({
                 whileInView={isMobile ? { opacity: 1, y: 0, scale: 1 } : { opacity: 1, y: 0, scale: 1 }}
                 viewport={{ once: true, margin: '-50px' }}
                 transition={{ duration: 0.5, delay: isMobile ? 0 : (index % 3) * 0.15 }}
-                className="group relative bg-[#E5E9EF] border border-[#111111]/10 p-7 rounded-3xl shadow-sm hover:shadow-xl hover:bg-white transition-all duration-300 flex flex-col justify-between h-[280px] overflow-hidden"
+                className="group relative bg-[#E5E9EF] border border-[#111111]/10 p-7 lg:p-9 rounded-3xl xl:rounded-[32px] shadow-sm hover:shadow-xl hover:bg-white transition-all duration-300 flex flex-col justify-between min-h-[280px] lg:min-h-[310px] xl:min-h-[340px] h-auto overflow-hidden"
               >
                 {/* Accent Corner Flash */}
                 <div className="absolute top-0 right-0 w-24 h-24 bg-[#8C21EF]/10 rounded-bl-full transition-transform group-hover:scale-125 duration-500 pointer-events-none" />

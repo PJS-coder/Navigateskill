@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowUpRight, ArrowRight, ArrowDownRight, Sparkles, Menu, X } from 'lucide-react';
 import logo from '../assets/navigate.png';
@@ -17,7 +18,6 @@ interface HeroProps {
 
 export const Hero: React.FC<HeroProps> = ({ onOpenConsultation }) => {
   const [wordIndex, setWordIndex] = useState(0);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -29,158 +29,8 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation }) => {
   return (
     <section
       id="hero"
-      className="w-full min-h-screen md:min-h-screen h-[100dvh] md:h-auto relative flex flex-col justify-between bg-[#F7F3EC] border-b border-[#111111]/[0.08] overflow-hidden"
+      className="w-full min-h-screen md:min-h-screen h-auto relative flex flex-col justify-between bg-[#F7F3EC] border-b border-[#111111]/[0.08] overflow-hidden pt-24 sm:pt-28 md:pt-32"
     >
-      {/* ── NAVBAR ── */}
-      <div className="w-full px-4 sm:px-6 z-30 flex-shrink-0 pt-2 sm:pt-4">
-        <div className="max-w-[1800px] mx-auto">
-          <div className="bg-[#EAE4D9]/90 backdrop-blur-md border border-[#111111]/10 rounded-b-2xl sm:rounded-2xl px-3 py-2 sm:p-2.5 flex items-center justify-between shadow-sm">
-
-            {/* Logo + Brand */}
-            <div className="flex items-center gap-2.5">
-              <div className="bg-[#111111] p-1.5 sm:p-2 rounded-xl flex items-center justify-center shadow-md">
-                <img src={logoSrc} alt="Navigate Skill Logo" className="h-5 sm:h-6 w-auto object-contain" />
-              </div>
-              <div className="flex flex-col">
-                <span className="text-[13px] sm:text-lg font-black tracking-tight text-[#111111] font-display uppercase leading-none">
-                  NAVIGATE <span className="text-[#8C21EF]">SKILL</span>
-                </span>
-                <span className="hidden sm:block text-[9px] font-extrabold text-[#111111]/50 uppercase tracking-widest pt-0.5">
-                  Delhi, India
-                </span>
-              </div>
-            </div>
-
-            {/* Desktop Nav Links */}
-            <div className="hidden md:flex items-center gap-7 text-xs font-black uppercase tracking-wider text-[#111111]">
-              <a href="#about" className="hover:text-[#8C21EF] transition-colors">About Us</a>
-              <a href="#what-we-offer" className="hover:text-[#8C21EF] transition-colors">What We Offer</a>
-              <a href="#what-we-do" className="hover:text-[#8C21EF] transition-colors">What We Do</a>
-              <a href="#our-work" className="hover:text-[#8C21EF] transition-colors">Our Services</a>
-            </div>
-
-            {/* Desktop CTA Button */}
-            <button
-              onClick={onOpenConsultation}
-              className="hidden md:flex group items-center gap-2 rounded-xl bg-[#111111] text-[#F7F3EC] p-1 pr-4 transition-all duration-300 hover:bg-[#8C21EF] shadow-md"
-            >
-              <div className="w-8 h-8 rounded-lg bg-[#8C21EF] text-[#F7F3EC] flex items-center justify-center group-hover:bg-[#111111] transition-colors">
-                <ArrowUpRight className="w-4 h-4" />
-              </div>
-              <span className="text-xs font-black uppercase tracking-wider">Contact Our Team</span>
-            </button>
-
-            {/* Mobile Hamburger */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label="Toggle Navigation Menu"
-              className="flex md:hidden w-9 h-9 rounded-xl bg-[#111111] text-[#F7F3EC] items-center justify-center shadow-md active:scale-95 transition-transform"
-            >
-              {mobileMenuOpen ? <X className="w-5 h-5 text-[#8C21EF]" /> : <Menu className="w-5 h-5" />}
-            </button>
-          </div>
-
-          {/* Mobile Left Drawer Navigation Menu */}
-          <AnimatePresence>
-            {mobileMenuOpen && (
-              <>
-                {/* Backdrop Overlay */}
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.25 }}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="fixed inset-0 bg-[#111111]/50 backdrop-blur-sm z-50 md:hidden"
-                />
-
-                {/* Left Side Sliding Drawer Menu (Website Theme #F7F3EC) */}
-                <motion.div
-                  initial={{ x: '-100%' }}
-                  animate={{ x: '0%' }}
-                  exit={{ x: '-100%' }}
-                  transition={{ type: 'spring', damping: 28, stiffness: 280 }}
-                  className="fixed top-0 left-0 bottom-0 w-[85vw] max-w-[340px] bg-[#F7F3EC] text-[#111111] p-6 z-50 shadow-2xl flex flex-col justify-between border-r border-[#111111]/12 md:hidden overflow-y-auto"
-                >
-                  {/* Top Header */}
-                  <div className="flex items-center justify-between border-b border-[#111111]/10 pb-5">
-                    <div className="flex items-center gap-2.5">
-                      <div className="bg-[#111111] p-1.5 rounded-xl flex items-center justify-center shadow-md">
-                        <img src={logoSrc} alt="Navigate Skill Logo" className="h-5 w-auto object-contain" />
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="text-sm font-black tracking-tight text-[#111111] font-display uppercase leading-none">
-                          NAVIGATE <span className="text-[#8C21EF]">SKILL</span>
-                        </span>
-                        <span className="text-[9px] font-extrabold text-[#111111]/50 uppercase tracking-widest pt-0.5">
-                          Delhi, India
-                        </span>
-                      </div>
-                    </div>
-                    <button
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="w-8 h-8 rounded-xl bg-[#111111] text-white flex items-center justify-center hover:bg-[#8C21EF] transition-colors shadow-sm"
-                    >
-                      <X className="w-4 h-4" />
-                    </button>
-                  </div>
-
-                  {/* Menu Links */}
-                  <div className="py-6 space-y-1 flex-1">
-                    <div className="text-[10px] font-black uppercase tracking-widest text-[#8C21EF] mb-3 px-2">
-                      Navigation Menu
-                    </div>
-                    {[
-                      '01|#about|About Us',
-                      '02|#what-we-offer|What We Offer',
-                      '03|#what-we-do|What We Do',
-                      '04|#our-work|Our Services',
-                      '05|#who-we-are|Who We Are',
-                    ].map((item, idx) => {
-                      const [num, href, label] = item.split('|');
-                      return (
-                        <motion.a
-                          key={href}
-                          href={href}
-                          initial={{ opacity: 0, x: -15 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: 0.08 + idx * 0.05 }}
-                          onClick={() => setMobileMenuOpen(false)}
-                          className="flex items-center justify-between p-3 rounded-xl border border-transparent hover:border-[#111111]/12 hover:bg-[#EAE4D9]/80 group transition-all duration-200"
-                        >
-                          <div className="flex items-center gap-3">
-                            <span className="text-xs font-black font-display text-[#8C21EF]">
-                              {num}
-                            </span>
-                            <span className="text-sm font-extrabold uppercase tracking-wider text-[#111111] group-hover:text-[#8C21EF] transition-colors">
-                              {label}
-                            </span>
-                          </div>
-                          <ArrowRight className="w-4 h-4 text-[#111111]/40 group-hover:text-[#8C21EF] group-hover:translate-x-1 transition-all" />
-                        </motion.a>
-                      );
-                    })}
-                  </div>
-
-                  {/* Bottom Footer CTA & Credits */}
-                  <div className="space-y-4 pt-4 border-t border-[#111111]/10">
-                    <button
-                      onClick={() => { setMobileMenuOpen(false); onOpenConsultation(); }}
-                      className="w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-[#111111] text-[#F7F3EC] text-xs font-black uppercase tracking-wider hover:bg-[#8C21EF] transition-all shadow-md active:scale-95"
-                    >
-                      <span>Book Consultation</span>
-                      <ArrowUpRight className="w-4 h-4" />
-                    </button>
-                    <div className="text-[10px] font-medium text-[#111111]/50 text-center tracking-wider uppercase">
-                      © 2026 Navigateskill • All Rights Reserved
-                    </div>
-                  </div>
-                </motion.div>
-              </>
-            )}
-          </AnimatePresence>
-        </div>
-      </div>
 
       {/* ── MOBILE HERO LAYOUT (100dvh Viewport Locked & Dynamic Fitting) ── */}
       <div className="flex-1 flex md:hidden flex-col justify-between px-4 sm:px-5 py-3 gap-2 overflow-hidden min-h-0">

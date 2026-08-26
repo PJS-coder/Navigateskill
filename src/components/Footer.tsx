@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import { ArrowUpRight, ArrowUp } from 'lucide-react';
 
 export const Footer: React.FC = () => {
@@ -14,7 +15,7 @@ export const Footer: React.FC = () => {
       {/* Subtle Ambient Purple Glow */}
       <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#8C21EF]/10 rounded-full blur-[160px] pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10 space-y-16">
+      <div className="max-w-7xl xl:max-w-[1400px] 2xl:max-w-[1600px] mx-auto px-6 md:px-12 relative z-10 space-y-16">
 
         {/* MIDDLE NAVIGATION GRID */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-sm pt-4">
@@ -25,11 +26,11 @@ export const Footer: React.FC = () => {
               Navigation
             </div>
             <ul className="space-y-2.5 text-[#111111]/75 font-semibold">
-              <li><a href="#hero" className="hover:text-[#8C21EF] transition-colors">Home</a></li>
-              <li><a href="#about" className="hover:text-[#8C21EF] transition-colors">About Us</a></li>
-              <li><a href="#what-we-offer" className="hover:text-[#8C21EF] transition-colors">What We Offer</a></li>
-              <li><a href="#what-we-do" className="hover:text-[#8C21EF] transition-colors">What We Do</a></li>
-              <li><a href="#our-work" className="hover:text-[#8C21EF] transition-colors">Our Work</a></li>
+              <li><Link href="/" className="hover:text-[#8C21EF] transition-colors">Home</Link></li>
+              <li><Link href="/services" className="hover:text-[#8C21EF] transition-colors">Services</Link></li>
+              <li><Link href="/work" className="hover:text-[#8C21EF] transition-colors">Work</Link></li>
+              <li><Link href="/about" className="hover:text-[#8C21EF] transition-colors">About Us</Link></li>
+              <li><Link href="/contact" className="hover:text-[#8C21EF] transition-colors">Contact</Link></li>
             </ul>
           </div>
 
@@ -39,11 +40,11 @@ export const Footer: React.FC = () => {
               Disciplines
             </div>
             <ul className="space-y-2.5 text-[#111111]/75 font-semibold">
-              <li><a href="#our-work" className="hover:text-[#8C21EF] transition-colors">Web Development</a></li>
-              <li><a href="#our-work" className="hover:text-[#8C21EF] transition-colors">App Development</a></li>
-              <li><a href="#our-work" className="hover:text-[#8C21EF] transition-colors">Social Media Marketing</a></li>
-              <li><a href="#our-work" className="hover:text-[#8C21EF] transition-colors">Ad Management & ROAS</a></li>
-              <li><a href="#our-work" className="hover:text-[#8C21EF] transition-colors">SEO & Growth</a></li>
+              <li><Link href="/services" className="hover:text-[#8C21EF] transition-colors">Web Development</Link></li>
+              <li><Link href="/services" className="hover:text-[#8C21EF] transition-colors">App Development</Link></li>
+              <li><Link href="/services" className="hover:text-[#8C21EF] transition-colors">Social Media Marketing</Link></li>
+              <li><Link href="/services" className="hover:text-[#8C21EF] transition-colors">Ad Management &amp; ROAS</Link></li>
+              <li><Link href="/services" className="hover:text-[#8C21EF] transition-colors">SEO &amp; Growth</Link></li>
             </ul>
           </div>
 
@@ -67,8 +68,8 @@ export const Footer: React.FC = () => {
             </div>
             <div className="space-y-2 text-[#111111]/75 font-semibold">
               <p className="text-[#111111] font-bold">hello@navigateskill.com</p>
-              <p>+91 (11) 4920-8800</p>
-              <p className="text-xs text-[#111111]/50 pt-2">Connaught Place, New Delhi 110001</p>
+              <p>+91 92181 87041</p>
+              <p className="text-xs text-[#111111]/50 pt-2">Sector 7, Rohini, Delhi, India</p>
             </div>
           </div>
 
