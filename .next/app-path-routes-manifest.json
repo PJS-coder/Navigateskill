@@ -1,8 +1,9 @@
 {
+  "/icon.png/route": "/icon.png",
   "/_not-found/page": "/_not-found",
-  "/about/page": "/about",
-  "/services/page": "/services",
   "/page": "/",
-  "/work/page": "/work",
-  "/contact/page": "/contact"
+  "/contact/page": "/contact",
+  "/services/page": "/services",
+  "/about/page": "/about",
+  "/work/page": "/work"
 }

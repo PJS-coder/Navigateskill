@@ -5,7 +5,9 @@ export const metadata: Metadata = {
   title: 'Navigate Skill — Modern IT & Digital Solutions Studio',
   description: 'Navigateskill turns brands into digital powerhouses through intelligent marketing, creative strategy, web development, app engineering, and next-gen automation.',
   icons: {
-    icon: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%238C21EF'><path d='M12 2L2 19h20L12 2zm0 3.8L18.5 17H5.5L12 5.8z'/></svg>",
+    icon: '/navigate.png',
+    shortcut: '/navigate.png',
+    apple: '/navigate.png',
   },
 };
 
