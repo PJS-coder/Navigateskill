@@ -95,7 +95,7 @@ export default function ContactPage() {
                     <Mail className="w-5 h-5 text-[#8C21EF]" />
                     <div>
                       <div className="text-[10px] font-black uppercase tracking-widest text-[#111111]/50">Email</div>
-                      <div className="text-sm font-bold text-[#111111]">hello@navigateskill.com</div>
+                      <a href="mailto:navigateskill@gmail.com" className="text-sm font-bold text-[#111111] hover:text-[#8C21EF] transition-colors">navigateskill@gmail.com</a>
                     </div>
                   </div>
 
@@ -103,7 +103,7 @@ export default function ContactPage() {
                     <Phone className="w-5 h-5 text-[#8C21EF]" />
                     <div>
                       <div className="text-[10px] font-black uppercase tracking-widest text-[#111111]/50">Phone</div>
-                      <div className="text-sm font-bold text-[#111111]">+91 92181 87041</div>
+                      <a href="tel:+919218187041" className="text-sm font-bold text-[#111111] hover:text-[#8C21EF] transition-colors">+91 92181 87041</a>
                     </div>
                   </div>
 
@@ -147,7 +147,7 @@ export default function ContactPage() {
                           Chat on WhatsApp
                           <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#25D366]/15 text-[#1b9e4b]">Fastest</span>
                         </div>
-                        <div className="text-sm text-[#111111]/60 font-medium">+91 9218187041</div>
+                        <div className="text-sm text-[#111111]/60 font-medium">+91 92181 87041</div>
                       </div>
                     </div>
                     <div className="w-10 h-10 rounded-full bg-white group-hover:bg-[#25D366] group-hover:text-white text-[#111111] flex items-center justify-center transition-colors shadow-sm">
@@ -157,7 +157,7 @@ export default function ContactPage() {
 
                   {/* Mail Option */}
                   <a
-                    href="mailto:hello@navigateskill.com?subject=Project%20Inquiry%20-%20Navigate%20Skill&body=Hello%20Navigate%20Skill%20Team%2C%0A%0AI%20would%20like%20to%20discuss%20a%20new%20project.%0A%0A"
+                    href="mailto:navigateskill@gmail.com?subject=Project%20Inquiry%20-%20Navigate%20Skill&body=Hello%20Navigate%20Skill%20Team%2C%0A%0AI%20would%20like%20to%20discuss%20a%20new%20project.%0A%0A"
                     className="group flex items-center justify-between p-6 rounded-2xl bg-[#F7F3EC] border border-[#111111]/10 shadow-sm hover:shadow-md hover:border-[#8C21EF]/50 transition-all duration-200"
                   >
                     <div className="flex items-center gap-4">
@@ -168,7 +168,7 @@ export default function ContactPage() {
                         <div className="text-lg font-extrabold text-[#111111] flex items-center gap-2">
                           Send an Email
                         </div>
-                        <div className="text-sm text-[#111111]/60 font-medium">hello@navigateskill.com</div>
+                        <div className="text-sm text-[#111111]/60 font-medium">navigateskill@gmail.com</div>
                       </div>
                     </div>
                     <div className="w-10 h-10 rounded-full bg-white group-hover:bg-[#8C21EF] group-hover:text-white text-[#111111] flex items-center justify-center transition-colors shadow-sm">

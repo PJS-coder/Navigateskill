@@ -14,7 +14,7 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({ isOpen, on
   const whatsappNumber = "919218187041";
   const whatsappMessage = encodeURIComponent("Hello Navigate Skill! I would like to discuss a project.");
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
-  const mailtoUrl = "mailto:hello@navigateskill.com?subject=Project%20Inquiry%20-%20Navigate%20Skill&body=Hello%20Navigate%20Skill%20Team%2C%0A%0AI%20would%20like%20to%20discuss%20a%20new%20project.%0A%0A";
+  const mailtoUrl = "mailto:navigateskill@gmail.com?subject=Project%20Inquiry%20-%20Navigate%20Skill&body=Hello%20Navigate%20Skill%20Team%2C%0A%0AI%20would%20like%20to%20discuss%20a%20new%20project.%0A%0A";
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#111111]/60 backdrop-blur-md animate-in fade-in duration-200">
@@ -62,7 +62,7 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({ isOpen, on
                   WhatsApp Direct
                   <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#25D366]/15 text-[#1b9e4b]">Instant</span>
                 </div>
-                <div className="text-xs text-[#111111]/60 font-medium">+91 9218187041</div>
+                <div className="text-xs text-[#111111]/60 font-medium">+91 92181 87041</div>
               </div>
             </div>
             <div className="w-9 h-9 rounded-full bg-[#F7F3EC] group-hover:bg-[#25D366] group-hover:text-white text-[#111111] flex items-center justify-center transition-colors">
@@ -84,7 +84,7 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({ isOpen, on
                 <div className="text-base font-extrabold text-[#111111] flex items-center gap-2">
                   Email Support
                 </div>
-                <div className="text-xs text-[#111111]/60 font-medium">hello@navigateskill.com</div>
+                <div className="text-xs text-[#111111]/60 font-medium">navigateskill@gmail.com</div>
               </div>
             </div>
             <div className="w-9 h-9 rounded-full bg-[#F7F3EC] group-hover:bg-[#8C21EF] group-hover:text-white text-[#111111] flex items-center justify-center transition-colors">

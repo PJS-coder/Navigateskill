@@ -54,10 +54,7 @@ export const Footer: React.FC = () => {
               Connect
             </div>
             <ul className="space-y-2.5 text-[#111111]/75 font-semibold">
-              <li><a href="https://instagram.com" target="_blank" rel="noreferrer" className="hover:text-[#8C21EF] transition-colors inline-flex items-center gap-1">Instagram <ArrowUpRight className="w-3 h-3" /></a></li>
-              <li><a href="https://linkedin.com" target="_blank" rel="noreferrer" className="hover:text-[#8C21EF] transition-colors inline-flex items-center gap-1">LinkedIn <ArrowUpRight className="w-3 h-3" /></a></li>
-              <li><a href="https://twitter.com" target="_blank" rel="noreferrer" className="hover:text-[#8C21EF] transition-colors inline-flex items-center gap-1">X / Twitter <ArrowUpRight className="w-3 h-3" /></a></li>
-              <li><a href="https://github.com" target="_blank" rel="noreferrer" className="hover:text-[#8C21EF] transition-colors inline-flex items-center gap-1">GitHub <ArrowUpRight className="w-3 h-3" /></a></li>
+              <li><a href="https://www.instagram.com/navigate_skill?utm_source=ig_web_button_share_sheet&igsi=ZDNlZDc0MzIxNw==" target="_blank" rel="noreferrer" className="hover:text-[#8C21EF] transition-colors inline-flex items-center gap-1">Instagram <ArrowUpRight className="w-3 h-3" /></a></li>
             </ul>
           </div>
 
@@ -67,8 +64,8 @@ export const Footer: React.FC = () => {
               Contact Direct
             </div>
             <div className="space-y-2 text-[#111111]/75 font-semibold">
-              <p className="text-[#111111] font-bold">hello@navigateskill.com</p>
-              <p>+91 92181 87041</p>
+              <a href="mailto:navigateskill@gmail.com" className="text-[#111111] font-bold hover:text-[#8C21EF] transition-colors block">navigateskill@gmail.com</a>
+              <a href="tel:+919218187041" className="hover:text-[#8C21EF] transition-colors block">+91 92181 87041</a>
               <p className="text-xs text-[#111111]/50 pt-2">Sector 7, Rohini, Delhi, India</p>
             </div>
           </div>
